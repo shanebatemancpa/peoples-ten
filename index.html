@@ -198,6 +198,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     <li><a href="#pillars">3 Pillars</a></li>
     <li><a href="#tablets">The People's Ten</a></li>
     <li><a href="#ledger">Policy Ledger</a></li>
+    <li><a href="#platform">The Platform</a></li>
     <li><a href="#strategy">Strategy</a></li>
     <li><a href="#cta">The Ask</a></li>
   </ul>
@@ -578,9 +579,635 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
   </div>
 </div>
 
+
+<!-- PLATFORM -->
+<div id="platform">
+
+  <!-- INTRO BANNER -->
+  <div style="background:var(--stone-dark);border-top:3px solid var(--gold);border-bottom:1px solid rgba(200,151,58,0.15);padding:5rem 2rem;text-align:center">
+    <div style="max-width:860px;margin:0 auto">
+      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem">10 — The Platform</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);font-weight:400;color:var(--white);line-height:0.95;letter-spacing:0.04em;margin-bottom:1rem">Three Tools.<br><span style="color:var(--gold-light)">One Movement.</span></h2>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(0.9rem,2vw,1.2rem);letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem">The Score · The Fund · The Network</div>
+      <p style="font-size:0.95rem;color:var(--muted);max-width:640px;margin:0 auto 2rem;line-height:1.8">From city hall to the Oval Office — every candidate scored, every dollar tracked, every community organized. This is what accountability looks like when it has infrastructure behind it.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <div style="background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.25);padding:0.6rem 1.25rem;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)">500K+ Offices Scored</div>
+        <div style="background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.25);padding:0.6rem 1.25rem;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)">100% Transparent Giving</div>
+        <div style="background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.25);padding:0.6rem 1.25rem;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)">Every Zip Code Connected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div style="background:var(--stone);position:sticky;top:56px;z-index:90;border-bottom:1px solid rgba(200,151,58,0.15)">
+    <div style="max-width:920px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none">
+      <button class="ptab active" onclick="showPanel('score',this)">
+        <span style="font-size:0.6rem;display:block;opacity:0.5;margin-bottom:0.1rem;letter-spacing:0.15em">01</span>
+        THE SCORE
+      </button>
+      <button class="ptab" onclick="showPanel('fund',this)">
+        <span style="font-size:0.6rem;display:block;opacity:0.5;margin-bottom:0.1rem;letter-spacing:0.15em">02</span>
+        THE FUND
+      </button>
+      <button class="ptab" onclick="showPanel('network',this)">
+        <span style="font-size:0.6rem;display:block;opacity:0.5;margin-bottom:0.1rem;letter-spacing:0.15em">03</span>
+        THE NETWORK
+      </button>
+      <button class="ptab" onclick="showPanel('community',this)">
+        <span style="font-size:0.6rem;display:block;opacity:0.5;margin-bottom:0.1rem;letter-spacing:0.15em">04</span>
+        COMMUNITY SCORE
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SCORE PANEL
+  ════════════════════════════════ -->
+  <div id="panel-score" class="platform-panel active" style="background:var(--stone);padding:3rem 2rem">
+    <div style="max-width:920px;margin:0 auto">
+
+      <!-- Header -->
+      <div style="margin-bottom:2.5rem">
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">People's Ten Accountability Index</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem">Every candidate. Every office. Scored.</h3>
+        <p style="font-size:0.88rem;color:var(--muted);max-width:640px;line-height:1.75">Three factors. Fully cited sources. Updated in real time as new votes, statements, and positions are recorded. From city council to the Senate — if they hold or seek public office, they have a score.</p>
+      </div>
+
+      <!-- Factor weight explainer -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.15);padding:1.5rem;margin-bottom:2rem">
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">How the Score is Calculated</div>
+        <div style="display:flex;height:10px;width:100%;margin-bottom:0.6rem">
+          <div style="width:30%;background:rgba(200,151,58,0.35);position:relative;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:0.55rem;color:rgba(200,151,58,0.8);font-family:'DM Mono',monospace;letter-spacing:0.05em;position:absolute;white-space:nowrap">30%</span>
+          </div>
+          <div style="width:30%;background:rgba(200,151,58,0.55);border-left:1px solid var(--stone);position:relative;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:0.55rem;color:rgba(200,151,58,0.9);font-family:'DM Mono',monospace;letter-spacing:0.05em;position:absolute;white-space:nowrap">30%</span>
+          </div>
+          <div style="width:40%;background:var(--gold);border-left:1px solid var(--stone);position:relative;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:0.55rem;color:var(--stone-dark);font-family:'DM Mono',monospace;letter-spacing:0.05em;position:absolute;white-space:nowrap;font-weight:700">40%</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:30% 30% 40%;font-size:0.68rem">
+          <div style="color:var(--muted);padding-right:0.5rem">
+            <span style="color:var(--white);font-weight:600;display:block;margin-bottom:0.15rem">Constituent Polling</span>
+            Geofenced to actual voters in candidate's jurisdiction. Weighted by registration status and voting history.
+          </div>
+          <div style="color:var(--muted);padding:0 0.5rem;border-left:1px solid rgba(255,255,255,0.05)">
+            <span style="color:var(--white);font-weight:600;display:block;margin-bottom:0.15rem">Commitment Score</span>
+            Signed pledge, co-sponsorships, formal platform positions. Recency-weighted.
+          </div>
+          <div style="color:var(--muted);padding-left:0.5rem;border-left:1px solid rgba(255,255,255,0.05)">
+            <span style="color:var(--white);font-weight:600;display:block;margin-bottom:0.15rem">Behavioral Record</span>
+            Votes (60%) · Statements (25%) · Donor patterns (15%). Actions outweigh words.
+          </div>
+        </div>
+      </div>
+
+      <!-- Two candidate comparison -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem">
+
+        <!-- HIGH SCORER -->
+        <div style="background:var(--navy-mid);border:1px solid rgba(126,201,138,0.25);overflow:hidden">
+          <div style="background:rgba(126,201,138,0.08);border-bottom:1px solid rgba(126,201,138,0.2);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem">
+            <div style="width:44px;height:44px;background:rgba(126,201,138,0.15);border:1px solid rgba(126,201,138,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#7EC98A;flex-shrink:0">SC</div>
+            <div style="flex:1">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:var(--white);letter-spacing:0.06em">Sarah Chen</div>
+              <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. Senate · Ohio · 2026 Race</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#7EC98A;line-height:1;letter-spacing:0.04em">9.4</div>
+              <div style="font-size:0.58rem;color:var(--muted);font-family:'DM Mono',monospace">/10</div>
+            </div>
+          </div>
+          <div style="padding:1.25rem">
+            <!-- Score bars -->
+            <div id="score-bars-high"></div>
+            <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+              <span style="font-size:0.6rem;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);color:#7EC98A;padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">✓ Pledge Signed Mar 2026</span>
+              <span style="font-size:0.6rem;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);color:#7EC98A;padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">✓ Zero Contradictions</span>
+              <span style="font-size:0.6rem;background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.2);color:var(--gold);padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">Updated 2h ago</span>
+            </div>
+            <div style="margin-top:1.25rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;text-align:center">
+              <div style="background:rgba(126,201,138,0.06);padding:0.7rem;border:1px solid rgba(126,201,138,0.12)">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#7EC98A;letter-spacing:0.04em">9.1</div>
+                <div style="font-size:0.55rem;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem">Polling</div>
+              </div>
+              <div style="background:rgba(126,201,138,0.06);padding:0.7rem;border:1px solid rgba(126,201,138,0.12)">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#7EC98A;letter-spacing:0.04em">9.8</div>
+                <div style="font-size:0.55rem;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem">Commitment</div>
+              </div>
+              <div style="background:rgba(126,201,138,0.06);padding:0.7rem;border:1px solid rgba(126,201,138,0.12)">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#7EC98A;letter-spacing:0.04em">9.4</div>
+                <div style="font-size:0.55rem;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem">Behavior</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOW SCORER -->
+        <div style="background:var(--navy-mid);border:1px solid rgba(224,112,112,0.25);overflow:hidden">
+          <div style="background:rgba(224,112,112,0.06);border-bottom:1px solid rgba(224,112,112,0.2);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem">
+            <div style="width:44px;height:44px;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#E07070;flex-shrink:0">RW</div>
+            <div style="flex:1">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:var(--muted);letter-spacing:0.06em">Rep. R. Wallace</div>
+              <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. House · TX-12 · Incumbent</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#E07070;line-height:1;letter-spacing:0.04em">2.1</div>
+              <div style="font-size:0.58rem;color:var(--muted);font-family:'DM Mono',monospace">/10</div>
+            </div>
+          </div>
+          <div style="padding:1.25rem">
+            <div id="score-bars-low"></div>
+            <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+              <span style="font-size:0.6rem;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.25);color:#E07070;padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">✗ No Pledge</span>
+              <span style="font-size:0.6rem;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.25);color:#E07070;padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">⚠ 7 Contradictions</span>
+              <span style="font-size:0.6rem;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.25);color:#E07070;padding:0.2rem 0.6rem;font-family:'DM Mono',monospace;letter-spacing:0.04em">✗ Voted Against II, III, IV</span>
+            </div>
+            <div style="margin-top:1.25rem;background:rgba(224,112,112,0.05);border:1px solid rgba(224,112,112,0.12);padding:1rem">
+              <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:#E07070;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem">Latest Contradiction Flag</div>
+              <p style="font-size:0.78rem;color:var(--muted);line-height:1.55">"Voted against The Fair Maps Act on March 4, 2026 — 11 days after publicly stating support for 'fair elections' at a town hall in Ft. Worth."</p>
+              <div style="font-size:0.6rem;color:rgba(224,112,112,0.5);font-family:'DM Mono',monospace;margin-top:0.4rem">Source: C-SPAN transcript + campaign event recording — both cited</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Score lookup CTA -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.2);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.25rem">Look Up Any Candidate or Official</div>
+          <div style="font-size:0.78rem;color:var(--muted)">Free. No login required. Any office. Any state. City council to Congress.</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:var(--gold);border:1px solid rgba(200,151,58,0.3);padding:0.6rem 1.25rem;white-space:nowrap">peoples-ten.org/score →</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       FUND PANEL
+  ════════════════════════════════ -->
+  <div id="panel-fund" class="platform-panel" style="background:var(--stone);padding:3rem 2rem">
+    <div style="max-width:920px;margin:0 auto">
+
+      <div style="margin-bottom:2.5rem">
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">People's Ten Fund — Transparent Political Giving</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem">Honest money. Full light.</h3>
+        <p style="font-size:0.88rem;color:var(--muted);max-width:640px;line-height:1.75">Every dollar tracked. Every recipient scored before and after. Every donor listed publicly within 24 hours. The first fully transparent political giving platform in American history — because honest people give through People's Ten.</p>
+      </div>
+
+      <!-- Live fund total -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.25);padding:2rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(200,151,58,0.06) 0%,transparent 70%);pointer-events:none"></div>
+        <div style="position:relative">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,151,58,0.5);margin-bottom:0.5rem">Total Raised This Cycle</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5.5rem);color:var(--gold);line-height:1;letter-spacing:0.04em" id="fund-counter">$4,287,334</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.5rem">
+            <div style="width:6px;height:6px;background:#7EC98A;border-radius:50%;animation:pulse 2s infinite"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--muted)">LIVE — Updated continuously</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split stats -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(200,151,58,0.1);margin-bottom:1.5rem">
+        <div style="background:var(--navy-mid);padding:1.25rem;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);line-height:1;letter-spacing:0.04em">$2.16M</div>
+          <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem">Deployed</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.25rem;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);line-height:1;letter-spacing:0.04em">4,847</div>
+          <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem">Donors (All Public)</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.25rem;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);line-height:1;letter-spacing:0.04em">$884</div>
+          <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem">Average Contribution</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+
+        <!-- Recipients -->
+        <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.15);padding:1.5rem">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem">Top Recipients — All Scored</div>
+
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="width:32px;height:32px;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;color:#7EC98A;flex-shrink:0">SC</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;color:var(--white)">Sarah Chen</div>
+              <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Ohio · U.S. Senate</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">9.4</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#7EC98A;letter-spacing:0.04em;flex-shrink:0">$341,200</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="width:32px;height:32px;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;color:#7EC98A;flex-shrink:0">EV</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;color:var(--white)">Elena Vasquez</div>
+              <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Arizona · U.S. Senate</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">9.8</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#7EC98A;letter-spacing:0.04em;flex-shrink:0">$287,000</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="width:32px;height:32px;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;color:#7EC98A;flex-shrink:0">MW</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;color:var(--white)">Marcus Williams</div>
+              <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Georgia · House-07</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">9.1</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#7EC98A;letter-spacing:0.04em;flex-shrink:0">$203,500</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="width:32px;height:32px;background:rgba(232,185,90,0.1);border:1px solid rgba(232,185,90,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;color:#E8B95A;flex-shrink:0">PN</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;color:var(--white)">Priya Nair</div>
+              <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Michigan · State Senate</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#E8B95A;letter-spacing:0.06em;flex-shrink:0">8.9</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#7EC98A;letter-spacing:0.04em;flex-shrink:0">$87,340</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="width:32px;height:32px;background:rgba(126,201,138,0.1);border:1px solid rgba(126,201,138,0.25);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;color:#7EC98A;flex-shrink:0">JO</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;color:var(--white)">James Okonkwo</div>
+              <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Philadelphia · City Council</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">10.0</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#7EC98A;letter-spacing:0.04em;flex-shrink:0">$42,100</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-top:1rem">
+            <div style="width:6px;height:6px;background:#7EC98A;border-radius:50%;animation:pulse 2s infinite"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.06em">All 4,847 donors public at peoples-ten.org/fund</div>
+          </div>
+        </div>
+
+        <!-- Portfolio selector -->
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Choose Your Giving Portfolio</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem">
+
+            <div class="portfolio-opt selected-opt" onclick="selectPortfolio(this)" style="background:var(--navy);border:1px solid rgba(200,151,58,0.5);padding:1rem;cursor:pointer">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--gold-light);letter-spacing:0.06em">All-Ten Portfolio</div>
+                <div style="width:10px;height:10px;border-radius:50%;border:1px solid rgba(200,151,58,0.4);background:var(--gold);flex-shrink:0"></div>
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem">Only candidates scoring 10/10 on every law</div>
+              <div style="font-size:0.6rem;color:rgba(200,151,58,0.5);font-family:'DM Mono',monospace;letter-spacing:0.04em">Threshold: 10.0/10</div>
+            </div>
+            <div class="portfolio-opt" onclick="selectPortfolio(this)" style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.12);padding:1rem;cursor:pointer">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--white);letter-spacing:0.06em">High-Score Portfolio</div>
+                <div style="width:10px;height:10px;border-radius:50%;border:1px solid rgba(200,151,58,0.4);background:transparent;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem">Candidates scoring 8.0 or above across all ten</div>
+              <div style="font-size:0.6rem;color:rgba(200,151,58,0.5);font-family:'DM Mono',monospace;letter-spacing:0.04em">Threshold: 8.0/10</div>
+            </div>
+            <div class="portfolio-opt" onclick="selectPortfolio(this)" style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.12);padding:1rem;cursor:pointer">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--white);letter-spacing:0.06em">Battleground Portfolio</div>
+                <div style="width:10px;height:10px;border-radius:50%;border:1px solid rgba(200,151,58,0.4);background:transparent;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem">High scorers in competitive races decided by 10 points or less</div>
+              <div style="font-size:0.6rem;color:rgba(200,151,58,0.5);font-family:'DM Mono',monospace;letter-spacing:0.04em">Threshold: 8.0/10 + competitive</div>
+            </div>
+            <div class="portfolio-opt" onclick="selectPortfolio(this)" style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.12);padding:1rem;cursor:pointer">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--white);letter-spacing:0.06em">Local Focus Portfolio</div>
+                <div style="width:10px;height:10px;border-radius:50%;border:1px solid rgba(200,151,58,0.4);background:transparent;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem">City, county, and statehouse races only</div>
+              <div style="font-size:0.6rem;color:rgba(200,151,58,0.5);font-family:'DM Mono',monospace;letter-spacing:0.04em">Threshold: 8.0/10 + local office</div>
+            </div>
+            <div class="portfolio-opt" onclick="selectPortfolio(this)" style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.12);padding:1rem;cursor:pointer">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--white);letter-spacing:0.06em">Custom Portfolio</div>
+                <div style="width:10px;height:10px;border-radius:50%;border:1px solid rgba(200,151,58,0.4);background:transparent;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem">Build your own basket from any scored candidates</div>
+              <div style="font-size:0.6rem;color:rgba(200,151,58,0.5);font-family:'DM Mono',monospace;letter-spacing:0.04em">Member-directed</div>
+            </div>
+          </div>
+          <div style="margin-top:1rem;padding:0.85rem;background:rgba(200,151,58,0.05);border-left:2px solid rgba(200,151,58,0.3)">
+            <p style="font-size:0.75rem;color:var(--muted);line-height:1.65;font-style:italic">If a funded candidate's score drops below threshold after receiving funds — flagged publicly and future giving paused pending member review. No exceptions.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       NETWORK PANEL
+  ════════════════════════════════ -->
+  <div id="panel-network" class="platform-panel" style="background:var(--stone);padding:3rem 2rem">
+    <div style="max-width:920px;margin:0 auto">
+
+      <div style="margin-bottom:2.5rem">
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">People's Ten Network — Hyper-Local Organizing</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem">Seven tools. Every community.</h3>
+        <p style="font-size:0.88rem;color:var(--muted);max-width:640px;line-height:1.75">A swiss army knife of civic organizing — connecting People's Ten members from their block to their ballot to their Congress member's door. City halls feed statehouses feed Congress.</p>
+      </div>
+
+      <!-- Location banner -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.2);padding:1.5rem;margin-bottom:1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:0.08em;line-height:1">78701</div>
+          <div style="font-size:0.7rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:0.2rem;letter-spacing:0.06em">Austin, Texas · Travis County · CD-25</div>
+        </div>
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);line-height:1;letter-spacing:0.04em">1,847</div>
+            <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem">Members Near You</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);line-height:1;letter-spacing:0.04em">634</div>
+            <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem">Active This Month</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);line-height:1;letter-spacing:0.04em">6</div>
+            <div style="font-size:0.6rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem">Active Races</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(200,151,58,0.08);margin-bottom:2rem">
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 01</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Local Map</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">See every member, active race, and candidate score in your zip code. Your community at a glance.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">3 active races near you · 6 candidates scored</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 02</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Pledge Drive</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">Launch and track a drive to get any local candidate to sign the People's Ten pledge. Signed, declined, or silent — all tracked.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">3 active drives · 2 signed this week</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 03</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Candidate Tracker</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">Follow any candidate. Instant alerts when their score changes, a contradiction is flagged, or a new vote is recorded.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">47 tracked in your district</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 04</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Local Forum</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">District-specific boards. Candidates respond directly to constituents. All responses permanently archived.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">12 active threads · 4 candidate responses</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 05</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Canvass Organizer</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">Turf-cutting, walk lists, and candidate scores — all accessible in the field on your phone. Create and join canvass events.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">Next event: Sat April 19 · 23 signed up</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 06</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Event Hub</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">Town halls, candidate forums, pledge signings, voter registration drives — find them, create them, track who shows.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">2 events this week near you</div>
+        </div>
+        <div style="background:var(--navy-mid);padding:1.5rem;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='var(--navy-light)'" onmouseleave="this.style.background='var(--navy-mid)'">
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:rgba(200,151,58,0.4);text-transform:uppercase;margin-bottom:0.5rem">Tool 07</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.5rem">Issue Campaign</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:0.75rem">Organize locally around any of the ten laws. Track which officials respond, what they say, and how it changes their score.</div>
+          <div style="font-size:0.62rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.04em">Fair Maps Act campaign active · 847 participants</div>
+        </div>
+      </div>
+
+      <!-- Live activity feed -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.15);padding:1.5rem">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.25rem">
+          <div style="width:6px;height:6px;background:#7EC98A;border-radius:50%;animation:pulse 2s infinite"></div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold)">Live Activity Feed — Your Area</div>
+        </div>
+        <div style="display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.04);align-items:flex-start">
+          <div style="width:8px;height:8px;border-radius:50%;background:#7EC98A;flex-shrink:0;margin-top:0.4rem"></div>
+          <div style="flex:1">
+            <div style="font-size:0.82rem;color:var(--white);line-height:1.45;margin-bottom:0.15rem">Maria T. joined People's Ten in zip 78702</div>
+            <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">Austin, TX</div>
+          </div>
+          <div style="font-size:0.6rem;color:rgba(168,160,154,0.4);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0">4m ago</div>
+        </div>
+        <div style="display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.04);align-items:flex-start">
+          <div style="width:8px;height:8px;border-radius:50%;background:#C8973A;flex-shrink:0;margin-top:0.4rem"></div>
+          <div style="flex:1">
+            <div style="font-size:0.82rem;color:var(--white);line-height:1.45;margin-bottom:0.15rem">Council candidate James Okonkwo signed the People's Ten pledge — score updated to 10.0/10</div>
+            <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">District 9 · Austin City Council</div>
+          </div>
+          <div style="font-size:0.6rem;color:rgba(168,160,154,0.4);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0">22m ago</div>
+        </div>
+        <div style="display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.04);align-items:flex-start">
+          <div style="width:8px;height:8px;border-radius:50%;background:#7EB8EC;flex-shrink:0;margin-top:0.4rem"></div>
+          <div style="flex:1">
+            <div style="font-size:0.82rem;color:var(--white);line-height:1.45;margin-bottom:0.15rem">$2,400 deployed from Battleground Portfolio to Elena Vasquez (AZ Senate · 9.8/10)</div>
+            <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">People's Ten Fund</div>
+          </div>
+          <div style="font-size:0.6rem;color:rgba(168,160,154,0.4);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0">1h ago</div>
+        </div>
+        <div style="display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.04);align-items:flex-start">
+          <div style="width:8px;height:8px;border-radius:50%;background:#E07070;flex-shrink:0;margin-top:0.4rem"></div>
+          <div style="flex:1">
+            <div style="font-size:0.82rem;color:var(--white);line-height:1.45;margin-bottom:0.15rem">Rep. R. Wallace (TX-12) dropped from 3.1 to 2.1 after voting against The Fair Maps Act</div>
+            <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">Contradiction flag auto-generated</div>
+          </div>
+          <div style="font-size:0.6rem;color:rgba(168,160,154,0.4);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0">3h ago</div>
+        </div>
+        <div style="display:flex;gap:0.75rem;padding:0.75rem 0;align-items:flex-start">
+          <div style="width:8px;height:8px;border-radius:50%;background:#C8973A;flex-shrink:0;margin-top:0.4rem"></div>
+          <div style="flex:1">
+            <div style="font-size:0.82rem;color:var(--white);line-height:1.45;margin-bottom:0.15rem">Canvass event created — Voter registration drive, District 25, Saturday April 19</div>
+            <div style="font-size:0.62rem;color:var(--muted);font-family:'DM Mono',monospace">78701 · 23 attending</div>
+          </div>
+          <div style="font-size:0.6rem;color:rgba(168,160,154,0.4);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0">5h ago</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       COMMUNITY PANEL
+  ════════════════════════════════ -->
+  <div id="panel-community" class="platform-panel" style="background:var(--stone);padding:3rem 2rem">
+    <div style="max-width:920px;margin:0 auto">
+
+      <div style="margin-bottom:2.5rem">
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">Community Accountability Score</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem">Not just candidates. Communities.</h3>
+        <p style="font-size:0.88rem;color:var(--muted);max-width:640px;line-height:1.75">Every community gets two scores: how civically engaged they are, and how aligned their elected officials are with the People's Ten. A candidate can score 10/10 in a community that scores 2/10 — that community is a priority target, not a lost cause.</p>
+      </div>
+
+      <!-- Community header -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.2);padding:1.5rem;margin-bottom:1.5rem">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--white);letter-spacing:0.06em;line-height:1">Travis County, Texas</div>
+            <div style="font-size:0.7rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:0.25rem">Austin metro · CDs 17, 25, 35 · Pop. 1,290,188</div>
+          </div>
+          <div style="display:flex;gap:1rem">
+            <div style="text-align:center;background:rgba(126,201,138,0.08);border:1px solid rgba(126,201,138,0.2);padding:1rem 1.25rem;min-width:100px">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#7EC98A;line-height:1;letter-spacing:0.04em">74</div>
+              <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.3rem">Civic Engagement</div>
+              <div style="font-size:0.65rem;color:#7EC98A;margin-top:0.2rem">↑ +3.2</div>
+            </div>
+            <div style="text-align:center;background:rgba(200,151,58,0.08);border:1px solid rgba(200,151,58,0.25);padding:1rem 1.25rem;min-width:100px">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);line-height:1;letter-spacing:0.04em">6.4</div>
+              <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.3rem">PT Alignment</div>
+              <div style="font-size:0.65rem;color:var(--gold);margin-top:0.2rem">↑ +0.8</div>
+            </div>
+          </div>
+        </div>
+        <!-- Civic stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.04)">
+            <div style="background:var(--navy);padding:0.85rem;text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);letter-spacing:0.04em">1.29M</div>
+            <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.15rem">Population</div>
+          </div>
+          <div style="background:var(--navy);padding:0.85rem;text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);letter-spacing:0.04em">891K</div>
+            <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.15rem">Voting Eligible</div>
+          </div>
+          <div style="background:var(--navy);padding:0.85rem;text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);letter-spacing:0.04em">78.4%</div>
+            <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.15rem">Registered</div>
+          </div>
+          <div style="background:var(--navy);padding:0.85rem;text-align:center">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);letter-spacing:0.04em">71.2%</div>
+            <div style="font-size:0.58rem;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.15rem">Last Turnout</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+
+        <!-- Representatives scorecards -->
+        <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.15);padding:1.5rem">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem">Your Representatives — Current Scores</div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">Mayor Kirk Watson</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">City of Austin</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#E8B95A;letter-spacing:0.06em;flex-shrink:0">7.1</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:71%;height:100%;background:#E8B95A;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">County Judge Andy Brown</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">Travis County</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">8.2</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:82%;height:100%;background:#7EC98A;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">Rep. Lloyd Doggett</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. House - Dist. 37</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#7EC98A;letter-spacing:0.06em;flex-shrink:0">8.1</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:81%;height:100%;background:#7EC98A;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">Rep. Michael McCaul</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. House - Dist. 10</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#E07070;letter-spacing:0.06em;flex-shrink:0">2.3</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:23%;height:100%;background:#E07070;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">Sen. John Cornyn</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. Senate - Texas</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#E07070;letter-spacing:0.06em;flex-shrink:0">1.8</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:18%;height:100%;background:#E07070;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem">
+              <div>
+                <div style="font-size:0.83rem;color:var(--white)">Sen. Ted Cruz</div>
+                <div style="font-size:0.6rem;color:var(--muted);font-family:'DM Mono',monospace">U.S. Senate - Texas</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#E07070;letter-spacing:0.06em;flex-shrink:0">0.9</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.06)">
+              <div style="width:9%;height:100%;background:#E07070;transition:width 1s"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Opportunity signal + drill down -->
+        <div>
+          <div style="background:rgba(224,112,112,0.06);border:1px solid rgba(224,112,112,0.2);padding:1.5rem;margin-bottom:1rem">
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#E07070;margin-bottom:0.75rem">⚠ Opportunity Signal</div>
+            <p style="font-size:0.83rem;color:var(--muted);line-height:1.65;margin-bottom:0.75rem">Travis County has <strong style="color:var(--white)">strong civic engagement (74/100)</strong> but its U.S. Senate delegation scores critically low (avg 1.35/10). High engagement + low alignment = an informed, motivated electorate that has not yet been given the right candidates.</p>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;color:var(--white);letter-spacing:0.06em">Priority target: 2026 Texas Senate race</div>
+          </div>
+
+          <div style="background:var(--navy-mid);border:1px solid rgba(200,151,58,0.15);padding:1.5rem">
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Drill Down by Geography</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.75rem;background:var(--navy);border:1px solid rgba(255,255,255,0.04);margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='rgba(200,151,58,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.04)'">
+              <span style="font-size:0.78rem;color:var(--muted)">Austin City Council districts</span>
+              <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:0.8rem">&#8594;</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.75rem;background:var(--navy);border:1px solid rgba(255,255,255,0.04);margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='rgba(200,151,58,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.04)'">
+              <span style="font-size:0.78rem;color:var(--muted)">Travis County precincts</span>
+              <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:0.8rem">&#8594;</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.75rem;background:var(--navy);border:1px solid rgba(255,255,255,0.04);margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='rgba(200,151,58,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.04)'">
+              <span style="font-size:0.78rem;color:var(--muted)">Texas State House districts</span>
+              <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:0.8rem">&#8594;</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.75rem;background:var(--navy);border:1px solid rgba(255,255,255,0.04);margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='rgba(200,151,58,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.04)'">
+              <span style="font-size:0.78rem;color:var(--muted)">Texas State Senate districts</span>
+              <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:0.8rem">&#8594;</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.75rem;background:var(--navy);border:1px solid rgba(255,255,255,0.04);margin-bottom:0.4rem;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='rgba(200,151,58,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.04)'">
+              <span style="font-size:0.78rem;color:var(--muted)">National comparison</span>
+              <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:0.8rem">&#8594;</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
 <!-- ARCHITECTURE -->
 <section id="architecture" class="page-section" style="border-top:1px solid rgba(255,255,255,0.05)">
-  <div class="sec-num">06 — The Narrative</div>
+  <div class="sec-num">11 — The Narrative</div>
   <h2 class="sec-title">A story every<br><em>American knows.</em></h2>
   <div class="sec-rule"></div>
   <p style="color:var(--muted);font-size:0.92rem;max-width:580px">This campaign does not invent a crisis. It names one that is already being lived by tens of millions of people.</p>
@@ -600,7 +1227,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 <div id="strategy" class="full-bleed" style="background:var(--navy-light)">
   <div class="inner">
     <section class="page-section" style="padding-left:0;padding-right:0;border-top:none">
-      <div class="sec-num">07 — Electoral Strategy</div>
+      <div class="sec-num">12 — Electoral Strategy</div>
       <h2 class="sec-title">Every level.<br><em>Every election.</em></h2>
       <div class="sec-rule"></div>
       <p style="color:var(--muted);font-size:0.92rem;max-width:640px;margin-bottom:2.5rem">This is not a Washington campaign. It is a governing philosophy that runs from city hall to the Capitol. The People's Ten applies at every level — and so does the pledge.</p>
@@ -624,7 +1251,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 
 <!-- TONE -->
 <section id="tone" class="page-section" style="border-top:1px solid rgba(255,255,255,0.05)">
-  <div class="sec-num">08 — How We Talk About This</div>
+  <div class="sec-num">13 — How We Talk About This</div>
   <h2 class="sec-title">The right tone<br><em>opens doors.</em></h2>
   <div class="sec-rule"></div>
   <p style="color:var(--muted);font-size:0.92rem;max-width:580px;margin-bottom:1.5rem">This campaign runs at every level of government. The tone must work in a city council race and a presidential debate. The goal is always the same: recruit, don't repel. Make the tent bigger, not smaller.</p>
@@ -641,7 +1268,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 <!-- CTA -->
 <div id="cta">
   <div class="inner">
-    <div class="cta-eyebrow">09 — The Ask</div>
+    <div class="cta-eyebrow">14 — The Ask</div>
     <h2 class="cta-headline">Chaos is a strategy.<br><em>Clarity is the answer.</em></h2>
     <p class="cta-body">Manufactured chaos has one purpose: to make you feel like nothing can change. It can. Change does not start in Washington. It starts in city halls, school boards, and statehouses — and it works its way up. You have two elections, ten laws, and 330 million neighbors who were promised the same thing you were. Flip the House. Flip the Senate. Elect a president who means it. From the city council to the Oval Office — demand accountability. Demand transparency. Demand the People's Ten.</p>
     <div class="cta-cards">
@@ -662,9 +1289,57 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 <footer>America Belongs to You &nbsp;·&nbsp; The People's Ten &nbsp;·&nbsp; 2026 &amp; 2028</footer>
 
 <script>
+function showPanel(name,btn){
+  document.querySelectorAll('.platform-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function selectPortfolio(el){
+  var siblings=el.parentElement.querySelectorAll('.portfolio-opt');
+  siblings.forEach(function(c){
+    c.style.borderColor='rgba(200,151,58,0.12)';
+    c.style.background='var(--navy-mid)';
+    var dot=c.querySelector('div[style*="border-radius:50%"]');
+    if(dot)dot.style.background='transparent';
+    var name=c.querySelector('[style*="Bebas Neue"]');
+    if(name)name.style.color='var(--white)';
+  });
+  el.style.borderColor='rgba(200,151,58,0.5)';
+  el.style.background='var(--navy)';
+  var dot=el.querySelector('div[style*="border-radius:50%"]');
+  if(dot)dot.style.background='var(--gold)';
+  var name=el.querySelector('[style*="Bebas Neue"]');
+  if(name)name.style.color='var(--gold-light)';
+}
 function toggleCmd(id){
   document.getElementById(id).classList.toggle('open');
 }
+// Animate score bars when Score panel is shown
+function buildScoreBars(){
+  var high=[['I',96,'7EC98A'],['II',98,'7EC98A'],['III',91,'7EC98A'],['IV',95,'7EC98A'],['V',88,'E8B95A'],['VI',100,'7EC98A'],['VII',93,'7EC98A'],['VIII',85,'E8B95A'],['IX',96,'7EC98A'],['X',92,'7EC98A']];
+  var low=[['I',8,'E07070'],['II',5,'E07070'],['III',3,'E07070'],['IV',12,'E07070'],['V',21,'E07070'],['VI',18,'E07070'],['VII',28,'E07070'],['VIII',35,'E8B95A'],['IX',14,'E07070'],['X',22,'E07070']];
+  function renderBars(id,data){
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.innerHTML=data.map(function(d){
+      return '<div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem">'+
+        '<span style="font-family:Bebas Neue,sans-serif;font-size:0.65rem;color:var(--muted);width:24px;text-align:right;flex-shrink:0">'+d[0]+'</span>'+
+        '<div style="flex:1;height:5px;background:rgba(255,255,255,0.06)">'+
+          '<div class="animbar" data-w="'+d[1]+'" style="width:0%;height:100%;background:#'+d[2]+';transition:width 0.8s ease"></div>'+
+        '</div>'+
+        '<span style="font-size:0.62rem;color:var(--muted);font-family:DM Mono,monospace;width:30px;flex-shrink:0">'+d[1]+'%</span>'+
+      '</div>';
+    }).join('');
+    setTimeout(function(){
+      el.querySelectorAll('.animbar').forEach(function(b){b.style.width=b.dataset.w+'%'});
+    },100);
+  }
+  renderBars('score-bars-high',high);
+  renderBars('score-bars-low',low);
+}
+document.addEventListener('DOMContentLoaded',buildScoreBars);
+
 function togglePolicy(id){
   var bd=document.getElementById(id),tog=document.getElementById('tog-'+id),open=bd.classList.contains('open');
   bd.classList.toggle('open',!open);
@@ -672,4 +1347,20 @@ function togglePolicy(id){
 }
 </script>
 </body>
-</html>
+</html>/* ── PLATFORM DASHBOARDS ── */
+#platform{max-width:100%}
+.ptab{
+  padding:1rem 1.75rem;font-family:'Bebas Neue',sans-serif;font-size:0.88rem;
+  letter-spacing:0.1em;color:var(--muted);cursor:pointer;
+  border-bottom:3px solid transparent;border-top:none;border-left:none;border-right:none;
+  background:none;transition:all 0.2s;white-space:nowrap;text-align:left;
+  line-height:1.2;
+}
+.ptab:hover{color:var(--gold-light)}
+.ptab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.platform-panel{display:none}
+.platform-panel.active{display:block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── PRINT ── */
+
