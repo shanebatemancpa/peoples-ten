@@ -341,19 +341,52 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 
 <script>
 (function(){
-  var GOLD='#C8973A',GOLD2='#E8B95A',WHITE='#F7F4EE',RED='rgba(224,112,112,0.85)';
-  var TOTAL=60,VOTED=Math.round(60*(154/245));
+  var GOLD='#C8973A',GOLD2='#E8B95A',WHITE='#F7F4EE',RED='rgba(224,112,112,0.88)';
 
-  /* ── BEATS 1-4: CSS dot grid ── */
+  /* ── DOT PROPORTIONS based on 330M population ──
+     330M total  → 60 dots
+     245M eligible → 45 dots  (245/330 × 60)
+     156M voted    → 28 dots  (156/330 × 60)
+      89M missing  → 17 dots  (245-156 /330 × 60)
+      85M ineligible→ 15 dots
+  */
+  var TOTAL=60;
+  var ELIGIBLE=Math.round(60*(245/330));   // 45
+  var VOTED=Math.round(60*(156/330));      // 28
+  var MISSING=ELIGIBLE-VOTED;             // 17
+  /* slots: 0–(VOTED-1)=voted, VOTED–(ELIGIBLE-1)=missing, ELIGIBLE–59=ineligible */
+
+  /* ── 5 CSS DOT BEATS ── */
   var phases=[
-    {label:'Voting eligible population · 2024',num:'245',numColor:WHITE,ruleColor:GOLD,
-     caption:'Americans who had the legal right<br>to vote in 2024.',captionColor:'rgba(168,160,154,0.65)',dotMode:'dim'},
-    {label:'Ballots cast · 2024',num:'154',numColor:GOLD2,ruleColor:GOLD,
-     caption:'154 million showed up.<br>They chose the direction of the country.',captionColor:'rgba(247,244,238,0.75)',dotMode:'voted'},
-    {label:'Did not vote · 2024',num:'89',numColor:'rgba(224,112,112,0.9)',ruleColor:'rgba(224,112,112,0.4)',
-     caption:'89 million eligible Americans<br>did not cast a ballot.',captionColor:'rgba(247,244,238,0.75)',dotMode:'missing'},
-    {label:'The power that already exists',num:'89',numColor:GOLD,ruleColor:GOLD,
-     caption:'Not apathetic. Not lost.<br><strong style="color:#F7F4EE;font-weight:700">Waiting to be asked.</strong>',captionColor:'rgba(200,151,58,0.85)',dotMode:'waiting'}
+    /* Beat 0 — full US population */
+    {label:'United States population · 2024',
+     num:'330',numColor:'rgba(247,244,238,0.65)',ruleColor:'rgba(200,151,58,0.3)',
+     caption:'Americans living in the country they own.',
+     captionColor:'rgba(168,160,154,0.55)',dotMode:'all'},
+
+    /* Beat 1 — narrow to eligible */
+    {label:'Voting eligible population · 2024',
+     num:'245',numColor:WHITE,ruleColor:GOLD,
+     caption:'Americans with the legal right to vote.',
+     captionColor:'rgba(168,160,154,0.65)',dotMode:'eligible'},
+
+    /* Beat 2 — who actually voted vs who didn't */
+    {label:'Ballots cast · 2024',
+     num:'156',numColor:GOLD2,ruleColor:GOLD,
+     caption:'156 million showed up and chose the direction of the country.',
+     captionColor:'rgba(247,244,238,0.75)',dotMode:'voted'},
+
+    /* Beat 3 — the 89M problem */
+    {label:'Did not vote · 2024',
+     num:'89',numColor:'rgba(224,112,112,0.95)',ruleColor:'rgba(224,112,112,0.4)',
+     caption:'89 million eligible Americans did not cast a ballot.',
+     captionColor:'rgba(247,244,238,0.75)',dotMode:'missing'},
+
+    /* Beat 4 — reframe as opportunity */
+    {label:'The power that already exists',
+     num:'89',numColor:GOLD,ruleColor:GOLD,
+     caption:'Not apathetic. Not lost.<br><strong style="color:#F7F4EE;font-weight:700">Waiting to be asked.</strong>',
+     captionColor:'rgba(200,151,58,0.85)',dotMode:'waiting'}
   ];
 
   function buildDots(){
@@ -362,7 +395,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     for(var i=0;i<TOTAL;i++){
       var d=document.createElement('div');
       d.id='cvd-'+i;
-      d.style.cssText='width:9px;height:9px;border-radius:50%;background:rgba(200,151,58,0.1);flex-shrink:0;transition:background 0.5s,transform 0.6s,opacity 0.5s;opacity:0.25';
+      d.style.cssText='width:9px;height:9px;border-radius:50%;background:rgba(200,151,58,0.08);flex-shrink:0;transition:background 0.6s,transform 0.6s,opacity 0.5s;opacity:0.2';
       row.appendChild(d);
     }
   }
@@ -374,18 +407,40 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
           var d=document.getElementById('cvd-'+idx);
           if(!d)return;
           d.style.transform='scale(1)';
-          if(mode==='dim'){d.style.background='rgba(200,151,58,0.15)';d.style.opacity='0.3';}
-          else if(mode==='voted'){
-            if(idx<VOTED){d.style.background=GOLD2;d.style.opacity='0.9';}
-            else{d.style.background='rgba(200,151,58,0.08)';d.style.opacity='0.15';}
+
+          var voted=idx<VOTED;
+          var missing=idx>=VOTED&&idx<ELIGIBLE;
+          var ineligible=idx>=ELIGIBLE;
+
+          if(mode==='all'){
+            /* everyone — same muted tone, full country */
+            d.style.background='rgba(247,244,238,0.35)';
+            d.style.opacity='0.55';
+
+          } else if(mode==='eligible'){
+            /* show the eligible slice vs the ineligible */
+            if(ineligible){d.style.background='rgba(255,255,255,0.06)';d.style.opacity='0.18';}
+            else{d.style.background='rgba(200,151,58,0.5)';d.style.opacity='0.7';}
+
+          } else if(mode==='voted'){
+            /* voted=gold, missing=RED, ineligible=barely there */
+            if(voted){d.style.background=GOLD2;d.style.opacity='0.95';}
+            else if(missing){d.style.background=RED;d.style.opacity='0.9';}
+            else{d.style.background='rgba(255,255,255,0.05)';d.style.opacity='0.12';}
+
           } else if(mode==='missing'){
-            if(idx<VOTED){d.style.background='rgba(200,151,58,0.18)';d.style.opacity='0.22';}
-            else{d.style.background=RED;d.style.opacity='1';}
+            /* dim the voted, spotlight the 89M red */
+            if(voted){d.style.background='rgba(200,151,58,0.2)';d.style.opacity='0.28';}
+            else if(missing){d.style.background=RED;d.style.opacity='1';}
+            else{d.style.background='rgba(255,255,255,0.04)';d.style.opacity='0.1';}
+
           } else if(mode==='waiting'){
-            if(idx<VOTED){d.style.background=GOLD;d.style.opacity='0.4';}
-            else{d.style.background=RED;d.style.opacity='1';d.style.transform='scale(1.4)';}
+            /* dim voted, 89M red pulsing — they're alive, they're waiting */
+            if(voted){d.style.background='rgba(200,151,58,0.2)';d.style.opacity='0.28';}
+            else if(missing){d.style.background=RED;d.style.opacity='1';d.style.transform='scale(1.45)';}
+            else{d.style.background='rgba(255,255,255,0.04)';d.style.opacity='0.1';}
           }
-        },idx*28);
+        },idx*22);
       })(i);
     }
   }
@@ -423,7 +478,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     b5particles=[];
     var total=GCOLS*GROWS;
     var missingSet={};
-    while(Object.keys(missingSet).length<Math.round(total*0.36)){
+    while(Object.keys(missingSet).length<Math.round(total*(89/245))){
       missingSet[Math.floor(Math.random()*total)]=true;
     }
     for(var i=0;i<total;i++){
@@ -684,10 +739,10 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     });
   },0);
 
-  var autoTimings=[0,3000,6200,10000,14200];
+  var autoTimings=[0,3000,6200,9500,13000,17000];
   autoTimings.forEach(function(t,i){
     setTimeout(function(){
-      if(i<4){
+      if(i<5){
         stopBeat5();
         setPhase(i);
       } else {
