@@ -257,11 +257,20 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 
     <!-- CTA — only shown on final beat -->
     <div id="cv-cta" style="opacity:0;transition:opacity 1.2s;pointer-events:none">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--white);letter-spacing:0.04em;line-height:1.1;margin-bottom:1.5rem">
-        America Belongs<br>to <span style="color:var(--gold-light)">You.</span>
+
+      <!-- The three actions — the whole argument -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);color:var(--white);letter-spacing:0.06em;line-height:1.2;margin-bottom:1.5rem">
+        Show up.<br>
+        <span style="color:var(--gold-light)">Vote.</span><br>
+        Hold them accountable.
       </div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,151,58,0.45);margin-bottom:1.75rem">
-        From city hall to the Oval Office · The People's Ten
+
+      <!-- Title -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2.2vw,1.4rem);color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.35rem">
+        America Belongs to You
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,151,58,0.4);margin-bottom:1.75rem">
+        From city hall to the Oval Office &nbsp;·&nbsp; The People's Ten
       </div>
 
       <!-- Date countdown pair -->
@@ -373,7 +382,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     /* Beat 2 — who actually voted vs who didn't */
     {label:'Ballots cast · 2024',
      num:'156',numColor:GOLD2,ruleColor:GOLD,
-     caption:'156 million showed up and chose the direction of the country.',
+     caption:'156 million showed up. They chose.',
      captionColor:'rgba(247,244,238,0.75)',dotMode:'voted'},
 
     /* Beat 3 — the 89M problem */
@@ -381,12 +390,6 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
      num:'89',numColor:'rgba(224,112,112,0.95)',ruleColor:'rgba(224,112,112,0.4)',
      caption:'89 million eligible Americans did not cast a ballot.',
      captionColor:'rgba(247,244,238,0.75)',dotMode:'missing'},
-
-    /* Beat 4 — reframe as opportunity */
-    {label:'The power that already exists',
-     num:'89',numColor:GOLD,ruleColor:GOLD,
-     caption:'Not apathetic. Not lost.<br><strong style="color:#F7F4EE;font-weight:700">Waiting to be asked.</strong>',
-     captionColor:'rgba(200,151,58,0.85)',dotMode:'waiting'}
   ];
 
   function buildDots(){
@@ -464,7 +467,8 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
   /* ── BEAT 5: Canvas scatter → flicker → align → hold ── */
   var beat5Canvas=null,b5ctx=null,b5running=false;
   var b5particles=[],b5t=0,b5phase='scatter',b5phaseT=0,b5last=null;
-  var GCOLS=16,GROWS=8,GSPACEX=0,GSPACEY=0;
+  var GCOLS=16,GROWS=8,GSPACEX=0,GSPACEY=0,GOFFX=0,GOFY=0;
+  var b5spotlight=false;
 
   function calcGrid(W,H,CX,CY){
     GSPACEX=Math.min(22,W*0.048);
@@ -473,8 +477,9 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 
   function buildBeat5Particles(W,H,CX,CY){
     calcGrid(W,H,CX,CY);
-    var gOffX=CX-(GCOLS-1)*GSPACEX/2;
-    var gOffY=CY-(GROWS-1)*GSPACEY/2-H*0.04;
+    GOFFX=CX-(GCOLS-1)*GSPACEX/2;
+    GOFY=CY-(GROWS-1)*GSPACEY/2-H*0.04;
+    var gOffX=GOFFX, gOffY=GOFY;
     b5particles=[];
     var total=GCOLS*GROWS;
     var missingSet={};
@@ -563,9 +568,22 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         if(p.y>H+30) p.vy=-Math.abs(p.vy);
         dx=p.x+Math.sin(b5t*0.35+i*0.7)*1.5;
         dy=p.y+Math.cos(b5t*0.3+i*0.6)*1.0;
-        da=p.wasMissing?p.alpha*0.5:p.alpha;
-        ds=p.size;
-        col=p.scatterColor;
+        if(b5spotlight){
+          if(p.wasMissing){
+            var pulse=0.5+Math.sin(b5t*1.8+i*0.4)*0.5;
+            da=0.55+pulse*0.45;
+            ds=p.size*(1+pulse*0.5);
+            col=RED;
+          } else {
+            da=p.alpha*0.2;
+            ds=p.size*0.85;
+            col='rgba(200,151,58,0.3)';
+          }
+        } else {
+          da=p.wasMissing?p.alpha*0.5:p.alpha;
+          ds=p.size;
+          col=p.scatterColor;
+        }
 
       } else if(b5phase==='flicker'){
         p.x+=p.vx*0.5; p.y+=p.vy*0.5;
@@ -619,20 +637,66 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     b5ctx.globalAlpha=1;
 
     if(b5phase==='hold'){
-      var lineA=Math.min(0.09,b5phaseT*0.03+0.01);
+      /* subtle row lines */
+      var lineA=Math.min(0.06,b5phaseT*0.025+0.01);
       b5ctx.strokeStyle='rgba(200,151,58,'+lineA+')';
       b5ctx.lineWidth=0.5;
       for(var r=0;r<GROWS;r++){
         b5ctx.beginPath();
         for(var c2=0;c2<GCOLS;c2++){
-          var idx=r*GCOLS+c2;
-          if(idx>=b5particles.length)break;
-          var pp=b5particles[idx];
-          var px=pp.tx+Math.sin(b5t*0.9+idx*0.14)*0.7;
-          var py=pp.ty+Math.cos(b5t*0.85+idx*0.19)*0.45;
+          var idx2=r*GCOLS+c2;
+          if(idx2>=b5particles.length)break;
+          var pp=b5particles[idx2];
+          var px=pp.tx+Math.sin(b5t*0.9+idx2*0.14)*0.7;
+          var py=pp.ty+Math.cos(b5t*0.85+idx2*0.19)*0.45;
           if(c2===0)b5ctx.moveTo(px,py); else b5ctx.lineTo(px,py);
         }
         b5ctx.stroke();
+      }
+
+      /* gold box around organized grid */
+      var pad=22;
+      var bx=GOFFX-pad, by=GOFY-pad;
+      var bw=(GCOLS-1)*GSPACEX+pad*2, bh=(GROWS-1)*GSPACEY+pad*2;
+      var boxA=Math.min(0.7,b5phaseT*0.35+0.05);
+
+      /* SIMPLE RULES — drawn on canvas just above the box */
+      var labelA=Math.min(0.65,b5phaseT*0.4+0.05);
+      b5ctx.globalAlpha=labelA;
+      b5ctx.textAlign='center';
+      b5ctx.fillStyle='rgba(200,151,58,0.7)';
+      b5ctx.font='500 11px Arial';
+      b5ctx.letterSpacing='0.18em';
+      var labelText='SIMPLE  RULES';
+      b5ctx.fillText(labelText,CX,by-10);
+      b5ctx.globalAlpha=1;
+      b5ctx.strokeStyle='rgba(200,151,58,'+boxA+')';
+      b5ctx.lineWidth=1.5;
+      b5ctx.strokeRect(bx,by,bw,bh);
+
+      /* corner accents */
+      var ca=Math.min(0.9,b5phaseT*0.4+0.1);
+      var cs=10;
+      b5ctx.strokeStyle='rgba(200,151,58,'+ca+')';
+      b5ctx.lineWidth=2;
+      [[bx,by,1,1],[bx+bw,by,-1,1],[bx,by+bh,1,-1],[bx+bw,by+bh,-1,-1]].forEach(function(pt){
+        b5ctx.beginPath();b5ctx.moveTo(pt[0]+pt[2]*cs,pt[1]);b5ctx.lineTo(pt[0],pt[1]);b5ctx.lineTo(pt[0],pt[1]+pt[3]*cs);b5ctx.stroke();
+      });
+
+      /* text inside box — fades in after 0.8s */
+      var textA=Math.max(0,Math.min(1,(b5phaseT-0.8)*0.9));
+      if(textA>0){
+        var bcy=GOFY+(GROWS-1)*GSPACEY/2;
+        var fs=Math.round(bw*0.072);
+        b5ctx.globalAlpha=textA;
+        b5ctx.textAlign='center';
+        b5ctx.fillStyle=WHITE;
+        b5ctx.font='700 '+fs+'px Arial';
+        b5ctx.fillText('245 Million Voters.',CX,bcy-fs*0.4);
+        b5ctx.fillStyle='#C8973A';
+        b5ctx.font='500 '+Math.round(fs*0.82)+'px Arial';
+        b5ctx.fillText('One Shared Goal.',CX,bcy+fs*0.7);
+        b5ctx.globalAlpha=1;
       }
     }
 
@@ -655,25 +719,37 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         if(s==='scatter'){
           lbl.textContent='Scattered. Disconnected.';
           numEl.style.color=WHITE;
+          numEl.style.textAlign='';
           numEl.innerHTML='89<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
-          cap.innerHTML='Waiting to be asked.';
-          cap.style.color='rgba(200,151,58,0.65)';
+          cap.innerHTML='';
+          cap.style.color='transparent';
           rule.style.background='rgba(200,151,58,0.35)';
         } else if(s==='flicker'){
           lbl.textContent='Finding the signal.';
           numEl.style.color=GOLD;
         } else if(s==='align'){
-          lbl.textContent='Organizing.';
+          lbl.textContent='Coming together.';
           numEl.style.color=GOLD2;
+          numEl.style.textAlign='';
           numEl.innerHTML='245<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+          rule.style.background=GOLD;
           cap.innerHTML='<strong style="color:'+WHITE+'">Together.</strong>';
           cap.style.color=GOLD;
           rule.style.background=GOLD;
         } else if(s==='hold'){
-          lbl.textContent='2026 & 2028';
+          lbl.textContent="The People's Ten";
           numEl.style.color=GOLD;
-          cap.innerHTML='<strong style="color:'+WHITE+'">Every voice needs a seat at the table.</strong>';
-          cap.style.color=GOLD;
+          numEl.style.textAlign='center';
+          numEl.innerHTML='10';
+          cap.innerHTML='Simple Rules.';
+          cap.style.color='rgba(200,151,58,0.55)';
+          cap.style.fontSize='0.82rem';
+          cap.style.letterSpacing='0.18em';
+          cap.style.textTransform='uppercase';
+          cap.style.fontFamily='DM Mono,monospace';
+          rule.style.background='transparent';
+          var dotsEl=document.getElementById('cv-dots');
+          if(dotsEl) dotsEl.style.opacity='0';
         }
         /* fade back in */
         lbl.style.opacity='1';
@@ -697,6 +773,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     buildBeat5Particles(W,H,CX,CY);
 
     /* start animation loop immediately — canvas invisible while it pre-renders */
+    b5spotlight=false;
     b5running=true;
     b5t=0;b5phaseT=0;b5phase='scatter';b5last=null;
     requestAnimationFrame(beat5Loop);
@@ -709,8 +786,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
       dots.style.opacity='0';
     },80);
 
-    /* text changes AFTER crossfade settles */
-    updateBeat5Text('scatter',900);
+    /* text is handled by setPhase(2) — no updateBeat5Text for scatter */
   }
 
   function stopBeat5(){
@@ -739,17 +815,18 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     });
   },0);
 
-  var autoTimings=[0,3000,6200,9500,13000,17000];
-  autoTimings.forEach(function(t,i){
-    setTimeout(function(){
-      if(i<5){
-        stopBeat5();
-        setPhase(i);
-      } else {
-        startBeat5();
-      }
-    },t);
-  });
+  /* Beat 0 & 1: CSS only */
+  setTimeout(function(){ setPhase(0); }, 0);
+  setTimeout(function(){ setPhase(1); }, 3000);
+  /* Beat 2: CSS text (156M) + canvas scatter starts */
+  setTimeout(function(){ setPhase(2); }, 6200);
+  setTimeout(function(){ startBeat5(); }, 6500);
+  /* Beat 3: CSS text (89M) + spotlight the red on canvas */
+  setTimeout(function(){
+    setPhase(3);
+    b5spotlight=true;
+  }, 9800);
+  /* Canvas drives itself from here: scatter→flicker→align→hold */
 
   /* ── COUNTDOWN CLOCKS ── */
   function pad(n){return n<10?'0'+n:String(n);}
