@@ -251,16 +251,16 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     <div id="cv-dots" style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto 1.5rem;min-height:56px;align-items:center"></div>
 
     <!-- Caption -->
-    <div id="cv-caption" style="font-family:'Lato',sans-serif;font-size:clamp(0.9rem,2vw,1.1rem);line-height:1.75;color:rgba(168,160,154,0.65);min-height:52px;transition:color 0.6s;margin-bottom:2rem">
+    <div id="cv-caption" style="font-family:'Lato',sans-serif;font-size:clamp(0.9rem,2vw,1.05rem);line-height:1.7;color:rgba(168,160,154,0.65);height:52px;display:flex;align-items:center;justify-content:center;text-align:center;transition:color 0.6s;margin-bottom:1.5rem">
       Americans who had the legal right to vote in 2024.
     </div>
 
     <!-- CTA — only shown on final beat -->
-    <div id="cv-cta" style="opacity:0;transition:opacity 1s;pointer-events:none">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--white);letter-spacing:0.04em;line-height:1.1;margin-bottom:0.75rem">
+    <div id="cv-cta" style="opacity:0;transition:opacity 1.2s;pointer-events:none">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--white);letter-spacing:0.04em;line-height:1.1;margin-bottom:1.5rem">
         America Belongs<br>to <span style="color:var(--gold-light)">You.</span>
       </div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,151,58,0.5);margin-bottom:2rem">
+      <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,151,58,0.45);margin-bottom:1.75rem">
         From city hall to the Oval Office · The People's Ten
       </div>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
@@ -406,20 +406,20 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     var cv=beat5Canvas;
     var W=cv.width,H=cv.height,CX=W/2,CY=H*0.46;
 
-    if(b5phase==='scatter'&&b5phaseT>=2.2){
+    if(b5phase==='scatter'&&b5phaseT>=2.8){
       b5phase='flicker';b5phaseT=0;
       updateBeat5Text('flicker');
-    } else if(b5phase==='flicker'&&b5phaseT>=3.2){
+    } else if(b5phase==='flicker'&&b5phaseT>=3.8){
       b5phase='align';b5phaseT=0;
       updateBeat5Text('align');
-    } else if(b5phase==='align'&&b5phaseT>=3.0){
+    } else if(b5phase==='align'&&b5phaseT>=3.2){
       b5phase='hold';b5phaseT=0;
       updateBeat5Text('hold');
       setTimeout(function(){
         document.getElementById('cv-cta').style.opacity='1';
         document.getElementById('cv-cta').style.pointerEvents='auto';
-        setTimeout(function(){document.getElementById('cv-scroll').style.opacity='1';},700);
-      },600);
+        setTimeout(function(){document.getElementById('cv-scroll').style.opacity='1';},800);
+      },1000);
     }
 
     b5ctx.clearRect(0,0,W,H);
@@ -477,26 +477,16 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         da=0.25+ep*0.7;
         ds=p.size*(0.88+ep*0.35);
         if(p.wasMissing){
-          /* missing dots: arrive red, flash bright, then turn gold */
-          if(ep<0.3){
+          /* missing dots arrive later, land red — they have a seat but aren't gold yet */
+          if(ep<0.5){
             col=p.scatterColor;
-          } else if(ep<0.7){
-            /* the flash — briefly brighter red transitioning to gold */
-            var trans=(ep-0.3)/0.4;
-            var r=Math.round(224*(1-trans)+200*trans);
-            var g=Math.round(112*(1-trans)+151*trans);
-            var b2=Math.round(112*(1-trans)+58*trans);
-            col='rgb('+r+','+g+','+b2+')';
-            /* size pulse on arrival */
-            if(ep>0.45&&ep<0.65) ds*=(1+Math.sin((ep-0.45)/0.2*Math.PI)*0.5);
           } else {
-            col=GOLD2;
-          }
-          if(!p.arrived&&ep>0.55){
-            p.arrived=true;
+            /* size pulse on arrival moment */
+            if(ep>0.45&&ep<0.65) ds*=(1+Math.sin((ep-0.45)/0.2*Math.PI)*0.4);
+            col='rgba(224,112,112,0.85)';
           }
         } else {
-          col=ep>0.6?GOLD:GOLD;
+          col=GOLD;
         }
 
       } else {
@@ -504,14 +494,14 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         dx=p.tx+Math.sin(b5t*0.9+i*0.14)*0.7;
         dy=p.ty+Math.cos(b5t*0.85+i*0.19)*0.45;
         if(p.wasMissing){
-          /* missing dots pulse slightly brighter — newly arrived, full of energy */
-          da=0.78+Math.sin(b5t*1.4+i*0.35)*0.22;
-          ds=p.size*(1+Math.sin(b5t*1.2+i*0.3)*0.18);
-          col=GOLD2;
+          /* red dots stay red — proportionate, visible, still needing a seat */
+          col='rgba(224,112,112,0.85)';
+          da=0.7+Math.sin(b5t*1.6+i*0.4)*0.25;
+          ds=p.size*(1+Math.sin(b5t*1.4+i*0.35)*0.15);
         } else {
+          col=GOLD;
           da=0.65+Math.sin(b5t*1.1+i*0.28)*0.2;
           ds=p.size*(1+Math.sin(b5t*1.0+i*0.22)*0.12);
-          col=GOLD;
         }
       }
 
@@ -545,53 +535,77 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     requestAnimationFrame(beat5Loop);
   }
 
-  function updateBeat5Text(s){
-    var lbl=document.getElementById('cv-label');
-    var numEl=document.getElementById('cv-num');
-    var cap=document.getElementById('cv-caption');
-    var rule=document.getElementById('cv-rule');
-    if(s==='scatter'){
-      lbl.textContent='Scattered. Disconnected.';
-      numEl.style.color=WHITE;
-      numEl.innerHTML='89<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
-      cap.innerHTML='Waiting to be asked.';
-      cap.style.color='rgba(200,151,58,0.7)';
-      rule.style.background='rgba(200,151,58,0.4)';
-    } else if(s==='flicker'){
-      lbl.textContent='Finding the signal.';
-      numEl.style.color=GOLD;
-    } else if(s==='align'){
-      lbl.textContent='Organizing.';
-      numEl.style.color=GOLD2;
-      numEl.innerHTML='245<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
-      cap.innerHTML='<strong style="color:'+WHITE+'">Together.</strong>';
-      cap.style.color=GOLD;
-      rule.style.background=GOLD;
-    } else if(s==='hold'){
-      lbl.textContent='Organized — there is power.';
-      numEl.style.color=GOLD;
-      cap.innerHTML='<strong style="color:'+WHITE+'">Every voice has a seat at the table.</strong>';
-      cap.style.color=GOLD;
-    }
+  function updateBeat5Text(s,delay){
+    delay=delay||0;
+    setTimeout(function(){
+      var lbl=document.getElementById('cv-label');
+      var numEl=document.getElementById('cv-num');
+      var cap=document.getElementById('cv-caption');
+      var rule=document.getElementById('cv-rule');
+      /* fade out */
+      lbl.style.opacity='0';
+      cap.style.opacity='0';
+      numEl.style.opacity='0';
+      setTimeout(function(){
+        if(s==='scatter'){
+          lbl.textContent='Scattered. Disconnected.';
+          numEl.style.color=WHITE;
+          numEl.innerHTML='89<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+          cap.innerHTML='Waiting to be asked.';
+          cap.style.color='rgba(200,151,58,0.65)';
+          rule.style.background='rgba(200,151,58,0.35)';
+        } else if(s==='flicker'){
+          lbl.textContent='Finding the signal.';
+          numEl.style.color=GOLD;
+        } else if(s==='align'){
+          lbl.textContent='Organizing.';
+          numEl.style.color=GOLD2;
+          numEl.innerHTML='245<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+          cap.innerHTML='<strong style="color:'+WHITE+'">Together.</strong>';
+          cap.style.color=GOLD;
+          rule.style.background=GOLD;
+        } else if(s==='hold'){
+          lbl.textContent='2026 & 2028';
+          numEl.style.color=GOLD;
+          cap.innerHTML='<strong style="color:'+WHITE+'">Every voice needs a seat at the table.</strong>';
+          cap.style.color=GOLD;
+        }
+        /* fade back in */
+        lbl.style.opacity='1';
+        cap.style.opacity='1';
+        numEl.style.opacity='1';
+      },320);
+    },delay);
   }
 
   function startBeat5(){
-    /* hide CSS dot grid, take over with canvas */
-    document.getElementById('cv-dots').style.opacity='0';
     if(beat5Canvas)return;
+
+    /* create canvas — start invisible */
     beat5Canvas=document.createElement('canvas');
-    beat5Canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.8s';
+    beat5Canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity 1.4s ease';
     document.getElementById('cover').appendChild(beat5Canvas);
     b5ctx=beat5Canvas.getContext('2d');
     beat5Canvas.width=beat5Canvas.parentElement.offsetWidth||700;
     beat5Canvas.height=beat5Canvas.parentElement.offsetHeight||window.innerHeight;
     var W=beat5Canvas.width,H=beat5Canvas.height,CX=W/2,CY=H*0.46;
     buildBeat5Particles(W,H,CX,CY);
+
+    /* start animation loop immediately — canvas invisible while it pre-renders */
     b5running=true;
     b5t=0;b5phaseT=0;b5phase='scatter';b5last=null;
-    updateBeat5Text('scatter');
-    setTimeout(function(){beat5Canvas.style.opacity='1';},100);
     requestAnimationFrame(beat5Loop);
+
+    /* crossfade: canvas fades IN while CSS dots fade OUT simultaneously */
+    var dots=document.getElementById('cv-dots');
+    dots.style.transition='opacity 1.4s ease';
+    setTimeout(function(){
+      beat5Canvas.style.opacity='1';
+      dots.style.opacity='0';
+    },80);
+
+    /* text changes AFTER crossfade settles */
+    updateBeat5Text('scatter',900);
   }
 
   function stopBeat5(){
@@ -603,11 +617,24 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         beat5Canvas=null;b5ctx=null;
       },800);
     }
-    document.getElementById('cv-dots').style.opacity='1';
+    var dots=document.getElementById('cv-dots');
+    dots.style.transition='opacity 0.5s ease';
+    dots.style.opacity='1';
   }
 
   /* ── SEQUENCER ── */
-  var autoTimings=[0,2800,5800,9200,13000];
+  setTimeout(function(){
+    var els=['cv-label','cv-num','cv-caption'];
+    els.forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        var cur=el.style.transition||'';
+        el.style.transition=(cur?cur+',':'')+'opacity 0.3s ease';
+      }
+    });
+  },0);
+
+  var autoTimings=[0,3000,6200,10000,14200];
   autoTimings.forEach(function(t,i){
     setTimeout(function(){
       if(i<4){
