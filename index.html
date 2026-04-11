@@ -230,9 +230,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
   <div style="position:relative;z-index:2;width:100%;max-width:680px;padding:3rem 2rem;text-align:center">
 
     <!-- Eyebrow — fades in first -->
-    <div id="cv-eyebrow" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,151,58,0);margin-bottom:2rem;transition:color 1s">
-      America Belongs to You &nbsp;·&nbsp; The People's Ten
-    </div>
+    <!-- Eyebrow removed — title appears at end of sequence -->
 
     <!-- Phase label -->
     <div id="cv-label" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,151,58,0.5);margin-bottom:1rem;min-height:1.2em;transition:opacity 0.6s">
@@ -248,7 +246,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     <div id="cv-rule" style="width:48px;height:2px;background:var(--gold);margin:1.25rem auto;transition:background 0.8s"></div>
 
     <!-- Dot grid -->
-    <div id="cv-dots" style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto 1.5rem;min-height:56px;align-items:center"></div>
+    <div id="cv-dots" style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;max-width:460px;margin:0 auto 1rem;min-height:52px;align-items:flex-start;align-content:flex-start"></div>
 
     <!-- Caption -->
     <div id="cv-caption" style="font-family:'Lato',sans-serif;font-size:clamp(0.9rem,2vw,1.05rem);line-height:1.7;color:rgba(168,160,154,0.65);height:52px;display:flex;align-items:center;justify-content:center;text-align:center;transition:color 0.6s;margin-bottom:1.5rem">
@@ -260,17 +258,13 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 
       <!-- The three actions — the whole argument -->
       <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);color:var(--white);letter-spacing:0.06em;line-height:1.2;margin-bottom:1.5rem">
-        Show up.<br>
-        <span style="color:var(--gold-light)">Vote.</span><br>
-        Hold them accountable.
+        Demand accountability.<br>
+        <span style="color:var(--gold-light)">Vote.</span>
       </div>
 
       <!-- Title -->
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2.2vw,1.4rem);color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.35rem">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2.2vw,1.4rem);color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:1.75rem">
         America Belongs to You
-      </div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,151,58,0.4);margin-bottom:1.75rem">
-        From city hall to the Oval Office &nbsp;·&nbsp; The People's Ten
       </div>
 
       <!-- Date countdown pair -->
@@ -443,7 +437,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
             else if(missing){d.style.background=RED;d.style.opacity='1';d.style.transform='scale(1.45)';}
             else{d.style.background='rgba(255,255,255,0.04)';d.style.opacity='0.1';}
           }
-        },idx*22);
+        },idx*12);
       })(i);
     }
   }
@@ -471,8 +465,8 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
   var b5spotlight=false;
 
   function calcGrid(W,H,CX,CY){
-    GSPACEX=Math.min(22,W*0.048);
-    GSPACEY=Math.min(18,H*0.055);
+    GSPACEX=Math.min(18,W*0.038);
+    GSPACEY=Math.min(13,H*0.04);
   }
 
   function buildBeat5Particles(W,H,CX,CY){
@@ -482,9 +476,11 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     var gOffX=GOFFX, gOffY=GOFY;
     b5particles=[];
     var total=GCOLS*GROWS;
+    var missingCount=Math.round(total*(89/245));
+    /* place missing dots as the last N positions — creates a clear visible block */
     var missingSet={};
-    while(Object.keys(missingSet).length<Math.round(total*(89/245))){
-      missingSet[Math.floor(Math.random()*total)]=true;
+    for(var mi=total-missingCount;mi<total;mi++){
+      missingSet[mi]=true;
     }
     for(var i=0;i<total;i++){
       var col=i%GCOLS,row=Math.floor(i/GCOLS);
@@ -529,13 +525,13 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     var cv=beat5Canvas;
     var W=cv.width,H=cv.height,CX=W/2,CY=H*0.46;
 
-    if(b5phase==='scatter'&&b5phaseT>=6.0){
+    if(b5phase==='scatter'&&b5phaseT>=4.5){
       b5phase='flicker';b5phaseT=0;
       updateBeat5Text('flicker');
-    } else if(b5phase==='flicker'&&b5phaseT>=5.0){
+    } else if(b5phase==='flicker'&&b5phaseT>=3.5){
       b5phase='align';b5phaseT=0;
       updateBeat5Text('align');
-    } else if(b5phase==='align'&&b5phaseT>=8.0){
+    } else if(b5phase==='align'&&b5phaseT>=5.5){
       b5phase='hold';b5phaseT=0;
       updateBeat5Text('hold');
       setTimeout(function(){
@@ -580,9 +576,10 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
             col='rgba(200,151,58,0.3)';
           }
         } else {
-          da=p.wasMissing?p.alpha*0.5:p.alpha;
+          /* before spotlight — all gold, no red visible yet */
+          da=p.alpha;
           ds=p.size;
-          col=p.scatterColor;
+          col=GOLD;
         }
 
       } else if(b5phase==='flicker'){
@@ -593,13 +590,12 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         if(p.y>H+30) p.vy=-Math.abs(p.vy);
         dx=p.x; dy=p.y;
         var flick=Math.max(0,Math.sin(b5t*p.flickRate+p.flickPhase));
-        var flickMult=p.wasMissing?1.5:1.0;
-        da=p.alpha*0.2+flick*0.8*flickMult;
-        ds=p.size*(1+flick*0.9*flickMult);
-        col=p.wasMissing?(flick>0.5?GOLD:p.scatterColor):(flick>0.6?GOLD2:GOLD);
+        da=p.alpha*0.2+flick*0.8;
+        ds=p.size*(1+flick*0.9);
+        col=flick>0.6?GOLD2:GOLD;
 
       } else if(b5phase==='align'){
-        var ADUR=8.0;
+        var ADUR=5.5;
         var adj=Math.max(0,(b5phaseT-p.delay*0.4)/(ADUR*0.9));
         var ep=easeAlign(adj);
         dx=p.x+(p.tx-p.x)*ep;
@@ -607,25 +603,15 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         if(ep>0.99){p.x=p.tx;p.y=p.ty;}
         da=p.alpha*0.25+ep*0.7;
         ds=p.size*(0.82+ep*0.4);
-        if(p.wasMissing){
-          col=ep<0.4?p.scatterColor:'rgba(224,112,112,0.85)';
-          if(ep>0.38&&ep<0.58) ds*=(1+Math.sin((ep-0.38)/0.2*Math.PI)*0.35);
-        } else {
-          col=GOLD;
-        }
+        col=GOLD; /* all gold — unified */
+        if(p.wasMissing&&ep>0.38&&ep<0.58) ds*=(1+Math.sin((ep-0.38)/0.2*Math.PI)*0.35);
 
       } else {
         dx=p.tx+Math.sin(b5t*0.9+i*0.14)*0.7;
         dy=p.ty+Math.cos(b5t*0.85+i*0.19)*0.45;
-        if(p.wasMissing){
-          col='rgba(224,112,112,0.85)';
-          da=0.7+Math.sin(b5t*1.6+i*0.4)*0.25;
-          ds=p.size*(1+Math.sin(b5t*1.4+i*0.35)*0.15);
-        } else {
-          col=GOLD;
-          da=0.65+Math.sin(b5t*1.1+i*0.28)*0.2;
-          ds=p.size*(1+Math.sin(b5t*1.0+i*0.22)*0.12);
-        }
+        col=GOLD;
+        da=0.65+Math.sin(b5t*1.1+i*0.28)*0.2;
+        ds=p.size*(1+Math.sin(b5t*1.0+i*0.22)*0.12);
       }
 
       b5ctx.beginPath();
@@ -637,69 +623,8 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     b5ctx.globalAlpha=1;
 
     if(b5phase==='hold'){
-      /* subtle row lines */
-      var lineA=Math.min(0.06,b5phaseT*0.025+0.01);
-      b5ctx.strokeStyle='rgba(200,151,58,'+lineA+')';
-      b5ctx.lineWidth=0.5;
-      for(var r=0;r<GROWS;r++){
-        b5ctx.beginPath();
-        for(var c2=0;c2<GCOLS;c2++){
-          var idx2=r*GCOLS+c2;
-          if(idx2>=b5particles.length)break;
-          var pp=b5particles[idx2];
-          var px=pp.tx+Math.sin(b5t*0.9+idx2*0.14)*0.7;
-          var py=pp.ty+Math.cos(b5t*0.85+idx2*0.19)*0.45;
-          if(c2===0)b5ctx.moveTo(px,py); else b5ctx.lineTo(px,py);
-        }
-        b5ctx.stroke();
-      }
-
-      /* gold box around organized grid */
-      var pad=22;
-      var bx=GOFFX-pad, by=GOFY-pad;
-      var bw=(GCOLS-1)*GSPACEX+pad*2, bh=(GROWS-1)*GSPACEY+pad*2;
-      var boxA=Math.min(0.7,b5phaseT*0.35+0.05);
-
-      /* SIMPLE RULES — drawn on canvas just above the box */
-      var labelA=Math.min(0.65,b5phaseT*0.4+0.05);
-      b5ctx.globalAlpha=labelA;
-      b5ctx.textAlign='center';
-      b5ctx.fillStyle='rgba(200,151,58,0.7)';
-      b5ctx.font='500 11px Arial';
-      b5ctx.letterSpacing='0.18em';
-      var labelText='SIMPLE  RULES';
-      b5ctx.fillText(labelText,CX,by-10);
-      b5ctx.globalAlpha=1;
-      b5ctx.strokeStyle='rgba(200,151,58,'+boxA+')';
-      b5ctx.lineWidth=1.5;
-      b5ctx.strokeRect(bx,by,bw,bh);
-
-      /* corner accents */
-      var ca=Math.min(0.9,b5phaseT*0.4+0.1);
-      var cs=10;
-      b5ctx.strokeStyle='rgba(200,151,58,'+ca+')';
-      b5ctx.lineWidth=2;
-      [[bx,by,1,1],[bx+bw,by,-1,1],[bx,by+bh,1,-1],[bx+bw,by+bh,-1,-1]].forEach(function(pt){
-        b5ctx.beginPath();b5ctx.moveTo(pt[0]+pt[2]*cs,pt[1]);b5ctx.lineTo(pt[0],pt[1]);b5ctx.lineTo(pt[0],pt[1]+pt[3]*cs);b5ctx.stroke();
-      });
-
-      /* text inside box — fades in after 0.8s */
-      var textA=Math.max(0,Math.min(1,(b5phaseT-0.8)*0.9));
-      if(textA>0){
-        var bcy=GOFY+(GROWS-1)*GSPACEY/2;
-        var fs=Math.round(bw*0.072);
-        b5ctx.globalAlpha=textA;
-        b5ctx.textAlign='center';
-        b5ctx.fillStyle=WHITE;
-        b5ctx.font='700 '+fs+'px Arial';
-        b5ctx.fillText('245 Million Voters.',CX,bcy-fs*0.4);
-        b5ctx.fillStyle='#C8973A';
-        b5ctx.font='500 '+Math.round(fs*0.82)+'px Arial';
-        b5ctx.fillText('One Shared Goal.',CX,bcy+fs*0.7);
-        b5ctx.globalAlpha=1;
-      }
+      /* dots breathe — nothing else */
     }
-
     requestAnimationFrame(beat5Loop);
   }
 
@@ -737,19 +662,17 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
           cap.style.color=GOLD;
           rule.style.background=GOLD;
         } else if(s==='hold'){
-          lbl.textContent="The People's Ten";
+          lbl.textContent="The People's Ten  ·  Simple Rules";
           numEl.style.color=GOLD;
           numEl.style.textAlign='center';
           numEl.innerHTML='10';
-          cap.innerHTML='Simple Rules.';
-          cap.style.color='rgba(200,151,58,0.55)';
-          cap.style.fontSize='0.82rem';
-          cap.style.letterSpacing='0.18em';
-          cap.style.textTransform='uppercase';
-          cap.style.fontFamily='DM Mono,monospace';
+          cap.innerHTML='';
+          cap.style.color='transparent';
           rule.style.background='transparent';
           var dotsEl=document.getElementById('cv-dots');
-          if(dotsEl) dotsEl.style.opacity='0';
+          if(dotsEl){dotsEl.style.opacity='0';var gh=(GROWS-1)*GSPACEY+60;dotsEl.style.minHeight=gh+'px';}
+          var coverEl=document.getElementById('cover');
+          if(coverEl){coverEl.style.justifyContent='flex-start';coverEl.style.paddingTop='5vh';}
         }
         /* fade back in */
         lbl.style.opacity='1';
@@ -815,18 +738,16 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
     });
   },0);
 
-  /* Beat 0 & 1: CSS only */
+  /* Beat 0 (330M) */
   setTimeout(function(){ setPhase(0); }, 0);
-  setTimeout(function(){ setPhase(1); }, 3000);
-  /* Beat 2: CSS text (156M) + canvas scatter starts */
-  setTimeout(function(){ setPhase(2); }, 6200);
-  setTimeout(function(){ startBeat5(); }, 6500);
-  /* Beat 3: CSS text (89M) + spotlight the red on canvas */
-  setTimeout(function(){
-    setPhase(3);
-    b5spotlight=true;
-  }, 9800);
-  /* Canvas drives itself from here: scatter→flicker→align→hold */
+  /* Beat 1 (245M) */
+  setTimeout(function(){ setPhase(1); }, 2200);
+  /* Beat 2 (156M) + canvas scatter starts */
+  setTimeout(function(){ setPhase(2); }, 4400);
+  setTimeout(function(){ startBeat5(); }, 4600);
+  /* Beat 3 (89M + spotlight red) */
+  setTimeout(function(){ setPhase(3); b5spotlight=true; }, 7000);
+  /* Canvas drives itself: scatter 4.5s → flicker 3.5s → align 5.5s → hold */
 
   /* ── COUNTDOWN CLOCKS ── */
   function pad(n){return n<10?'0'+n:String(n);}
@@ -864,7 +785,7 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
   updateCountdowns();
   setInterval(updateCountdowns,1000);
 
-  setTimeout(function(){document.getElementById('cv-eyebrow').style.color='var(--gold)';},400);
+  /* eyebrow removed */
   buildDots();
 
   /* ── BG CANVAS ── */
