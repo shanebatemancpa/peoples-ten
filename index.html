@@ -221,23 +221,430 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
 </nav>
 
 <!-- COVER -->
-<section id="cover">
-  <div class="cover-glow"></div>
-  <div class="cover-content">
-    <div class="cover-eyebrow">A People's Campaign Pitch Packet · 2026 &amp; 2028</div>
-    <div class="cover-bar"></div>
-    <h1 class="cover-title">America<br>Belongs<br>to You</h1>
-    <div class="cover-subtitle">The People's Ten</div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(0.85rem,1.8vw,1.1rem);letter-spacing:0.18em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem">From City Council to the Oval Office</div>
-    <p class="cover-tag">"They told you <span>America First.</span><br>They meant themselves first."</p>
-    <div class="cover-dates">
-      <div class="date-badge">November 2026</div>
-      <div class="date-badge">November 2028</div>
+<section id="cover" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--navy);position:relative;overflow:hidden;padding:0">
+
+  <!-- Background canvas -->
+  <canvas id="cover-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
+
+  <!-- Main content -->
+  <div style="position:relative;z-index:2;width:100%;max-width:680px;padding:3rem 2rem;text-align:center">
+
+    <!-- Eyebrow — fades in first -->
+    <div id="cv-eyebrow" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,151,58,0);margin-bottom:2rem;transition:color 1s">
+      America Belongs to You &nbsp;·&nbsp; The People's Ten
     </div>
+
+    <!-- Phase label -->
+    <div id="cv-label" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,151,58,0.5);margin-bottom:1rem;min-height:1.2em;transition:opacity 0.6s">
+      Voting eligible population · 2024
+    </div>
+
+    <!-- Big number -->
+    <div id="cv-num" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,16vw,10rem);line-height:0.9;letter-spacing:0.02em;color:var(--white);transition:color 0.8s;margin-bottom:0.25rem">
+      245<span id="cv-suffix" style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:var(--gold)">M</span>
+    </div>
+
+    <!-- Divider -->
+    <div id="cv-rule" style="width:48px;height:2px;background:var(--gold);margin:1.25rem auto;transition:background 0.8s"></div>
+
+    <!-- Dot grid -->
+    <div id="cv-dots" style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto 1.5rem;min-height:56px;align-items:center"></div>
+
+    <!-- Caption -->
+    <div id="cv-caption" style="font-family:'Lato',sans-serif;font-size:clamp(0.9rem,2vw,1.1rem);line-height:1.75;color:rgba(168,160,154,0.65);min-height:52px;transition:color 0.6s;margin-bottom:2rem">
+      Americans who had the legal right to vote in 2024.
+    </div>
+
+    <!-- CTA — only shown on final beat -->
+    <div id="cv-cta" style="opacity:0;transition:opacity 1s;pointer-events:none">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--white);letter-spacing:0.04em;line-height:1.1;margin-bottom:0.75rem">
+        America Belongs<br>to <span style="color:var(--gold-light)">You.</span>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,151,58,0.5);margin-bottom:2rem">
+        From city hall to the Oval Office · The People's Ten
+      </div>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <div style="border:1px solid rgba(200,151,58,0.35);padding:0.55rem 1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-light);font-family:'DM Mono',monospace">November 2026</div>
+        <div style="border:1px solid rgba(200,151,58,0.35);padding:0.55rem 1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-light);font-family:'DM Mono',monospace">November 2028</div>
+      </div>
+    </div>
+
   </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+
+  <!-- Scroll hint -->
+  <div id="cv-scroll" style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;transition:opacity 1s;font-family:'DM Mono',monospace">
+    <span>Scroll</span>
+    <div style="width:1px;height:32px;background:linear-gradient(to bottom,var(--gold),transparent)"></div>
+  </div>
+
 </section>
 
+<script>
+(function(){
+  var GOLD='#C8973A',GOLD2='#E8B95A',WHITE='#F7F4EE',RED='rgba(224,112,112,0.85)';
+  var TOTAL=60,VOTED=Math.round(60*(154/245));
+
+  /* ── BEATS 1-4: CSS dot grid ── */
+  var phases=[
+    {label:'Voting eligible population · 2024',num:'245',numColor:WHITE,ruleColor:GOLD,
+     caption:'Americans who had the legal right<br>to vote in 2024.',captionColor:'rgba(168,160,154,0.65)',dotMode:'dim'},
+    {label:'Ballots cast · 2024',num:'154',numColor:GOLD2,ruleColor:GOLD,
+     caption:'154 million showed up.<br>They chose the direction of the country.',captionColor:'rgba(247,244,238,0.75)',dotMode:'voted'},
+    {label:'Did not vote · 2024',num:'89',numColor:'rgba(224,112,112,0.9)',ruleColor:'rgba(224,112,112,0.4)',
+     caption:'89 million eligible Americans<br>did not cast a ballot.',captionColor:'rgba(247,244,238,0.75)',dotMode:'missing'},
+    {label:'The power that already exists',num:'89',numColor:GOLD,ruleColor:GOLD,
+     caption:'Not apathetic. Not lost.<br><strong style="color:#F7F4EE;font-weight:700">Waiting to be asked.</strong>',captionColor:'rgba(200,151,58,0.85)',dotMode:'waiting'}
+  ];
+
+  function buildDots(){
+    var row=document.getElementById('cv-dots');
+    row.innerHTML='';
+    for(var i=0;i<TOTAL;i++){
+      var d=document.createElement('div');
+      d.id='cvd-'+i;
+      d.style.cssText='width:9px;height:9px;border-radius:50%;background:rgba(200,151,58,0.1);flex-shrink:0;transition:background 0.5s,transform 0.6s,opacity 0.5s;opacity:0.25';
+      row.appendChild(d);
+    }
+  }
+
+  function animateDots(mode){
+    for(var i=0;i<TOTAL;i++){
+      (function(idx){
+        setTimeout(function(){
+          var d=document.getElementById('cvd-'+idx);
+          if(!d)return;
+          d.style.transform='scale(1)';
+          if(mode==='dim'){d.style.background='rgba(200,151,58,0.15)';d.style.opacity='0.3';}
+          else if(mode==='voted'){
+            if(idx<VOTED){d.style.background=GOLD2;d.style.opacity='0.9';}
+            else{d.style.background='rgba(200,151,58,0.08)';d.style.opacity='0.15';}
+          } else if(mode==='missing'){
+            if(idx<VOTED){d.style.background='rgba(200,151,58,0.18)';d.style.opacity='0.22';}
+            else{d.style.background=RED;d.style.opacity='1';}
+          } else if(mode==='waiting'){
+            if(idx<VOTED){d.style.background=GOLD;d.style.opacity='0.4';}
+            else{d.style.background=GOLD;d.style.opacity='1';d.style.transform='scale(1.4)';}
+          }
+        },idx*28);
+      })(i);
+    }
+  }
+
+  function setPhase(n){
+    var p=phases[n];
+    var numEl=document.getElementById('cv-num');
+    numEl.style.color=p.numColor;
+    numEl.innerHTML=p.num+'<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+    document.getElementById('cv-label').textContent=p.label;
+    document.getElementById('cv-rule').style.background=p.ruleColor;
+    document.getElementById('cv-caption').innerHTML=p.caption;
+    document.getElementById('cv-caption').style.color=p.captionColor;
+    document.getElementById('cv-dots').style.opacity='1';
+    animateDots(p.dotMode);
+    document.getElementById('cv-cta').style.opacity='0';
+    document.getElementById('cv-cta').style.pointerEvents='none';
+    document.getElementById('cv-scroll').style.opacity='0';
+  }
+
+  /* ── BEAT 5: Canvas scatter → flicker → align → hold ── */
+  var beat5Canvas=null,b5ctx=null,b5running=false;
+  var b5particles=[],b5t=0,b5phase='scatter',b5phaseT=0,b5last=null;
+  var GCOLS=16,GROWS=8,GSPACEX=0,GSPACEY=0;
+
+  function calcGrid(W,H,CX,CY){
+    GSPACEX=Math.min(22,W*0.048);
+    GSPACEY=Math.min(18,H*0.055);
+  }
+
+  function buildBeat5Particles(W,H,CX,CY){
+    calcGrid(W,H,CX,CY);
+    var gOffX=CX-(GCOLS-1)*GSPACEX/2;
+    var gOffY=CY-(GROWS-1)*GSPACEY/2-H*0.04;
+    b5particles=[];
+    var total=GCOLS*GROWS;
+    /* 36% of dots are "wasMissing" — the 89M */
+    var missingCount=Math.round(total*0.36);
+    /* Spread missing dots throughout the grid — not clustered */
+    var missingSet={};
+    while(Object.keys(missingSet).length<missingCount){
+      missingSet[Math.floor(Math.random()*total)]=true;
+    }
+    for(var i=0;i<total;i++){
+      var col=i%GCOLS, row=Math.floor(i/GCOLS);
+      var isMissing=!!missingSet[i];
+      b5particles.push({
+        /* start scattered across full canvas */
+        x:(0.05+Math.random()*0.9)*W,
+        y:(0.08+Math.random()*0.84)*H,
+        tx:gOffX+col*GSPACEX,
+        ty:gOffY+row*GSPACEY,
+        vx:(Math.random()-0.5)*0.55,
+        vy:(Math.random()-0.5)*0.38,
+        size:Math.random()*1.9+0.85,
+        alpha:Math.random()*0.3+0.2,
+        flickRate:1.2+Math.random()*4,
+        flickPhase:Math.random()*Math.PI*2,
+        /* missing dots arrive LATER — extra delay */
+        delay:isMissing?(0.5+Math.random()*0.8):(Math.random()*0.4),
+        wasMissing:isMissing,
+        /* missing: start dim red; voted: gold */
+        scatterColor:isMissing?'rgba(224,112,112,0.6)':GOLD,
+        holdColor:isMissing?GOLD2:GOLD,
+        arrived:false
+      });
+    }
+  }
+
+  function easeOut3(t){return 1-Math.pow(1-Math.min(1,t),3);}
+
+  function beat5Loop(ts){
+    if(!b5running)return;
+    if(!b5last)b5last=ts;
+    var dt=Math.min((ts-b5last)/1000,0.05);
+    b5last=ts; b5t+=dt; b5phaseT+=dt;
+
+    var cv=beat5Canvas;
+    var W=cv.width,H=cv.height,CX=W/2,CY=H*0.46;
+
+    if(b5phase==='scatter'&&b5phaseT>=2.2){
+      b5phase='flicker';b5phaseT=0;
+      updateBeat5Text('flicker');
+    } else if(b5phase==='flicker'&&b5phaseT>=3.2){
+      b5phase='align';b5phaseT=0;
+      updateBeat5Text('align');
+    } else if(b5phase==='align'&&b5phaseT>=3.0){
+      b5phase='hold';b5phaseT=0;
+      updateBeat5Text('hold');
+      setTimeout(function(){
+        document.getElementById('cv-cta').style.opacity='1';
+        document.getElementById('cv-cta').style.pointerEvents='auto';
+        setTimeout(function(){document.getElementById('cv-scroll').style.opacity='1';},700);
+      },600);
+    }
+
+    b5ctx.clearRect(0,0,W,H);
+
+    /* glow in align/hold */
+    if(b5phase==='align'||b5phase==='hold'){
+      var gp=b5phase==='align'?easeOut3(b5phaseT/3.0):1;
+      var ga=gp*0.13+(b5phase==='hold'?Math.sin(b5t*1.8)*0.03:0);
+      var grd=b5ctx.createRadialGradient(CX,CY,8,CX,CY,Math.min(W,H)*0.36);
+      grd.addColorStop(0,'rgba(200,151,58,'+ga+')');
+      grd.addColorStop(1,'rgba(200,151,58,0)');
+      b5ctx.fillStyle=grd;b5ctx.fillRect(0,0,W,H);
+    }
+
+    for(var i=0;i<b5particles.length;i++){
+      var p=b5particles[i];
+      var dx,dy,da,ds,col;
+
+      if(b5phase==='scatter'){
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<8||p.x>W-8)p.vx*=-1;
+        if(p.y<8||p.y>H-8)p.vy*=-1;
+        dx=p.x;dy=p.y;
+        /* missing dots are dimmer and reddish — they exist but aren't engaged */
+        da=p.wasMissing?p.alpha*0.55:p.alpha;
+        ds=p.size;
+        col=p.scatterColor;
+
+      } else if(b5phase==='flicker'){
+        p.x+=p.vx*0.55;p.y+=p.vy*0.55;
+        if(p.x<8||p.x>W-8)p.vx*=-1;
+        if(p.y<8||p.y>H-8)p.vy*=-1;
+        var fp=Math.max(0,(b5phaseT-1.8)/1.4);
+        var fep=easeOut3(fp);
+        dx=p.x+(p.tx-p.x)*fep*0.4;
+        dy=p.y+(p.ty-p.y)*fep*0.4;
+        var flick=Math.max(0,Math.sin(b5t*p.flickRate+p.flickPhase));
+        /* missing dots flicker MORE intensely — they're waking up */
+        var flickMult=p.wasMissing?1.4:1.0;
+        da=p.alpha*0.3+flick*0.7*flickMult;
+        ds=p.size*(1+flick*0.8*flickMult);
+        /* missing transition from red toward gold as flicker intensifies */
+        if(p.wasMissing){
+          col=flick>0.5?GOLD:p.scatterColor;
+        } else {
+          col=flick>0.65?GOLD2:GOLD;
+        }
+
+      } else if(b5phase==='align'){
+        var adj=Math.max(0,(b5phaseT-p.delay*0.3)/2.0);
+        var ep=easeOut3(adj);
+        dx=p.x+(p.tx-p.x)*ep;
+        dy=p.y+(p.ty-p.y)*ep;
+        p.x=dx;p.y=dy;
+        da=0.25+ep*0.7;
+        ds=p.size*(0.88+ep*0.35);
+        if(p.wasMissing){
+          /* missing dots: arrive red, flash bright, then turn gold */
+          if(ep<0.3){
+            col=p.scatterColor;
+          } else if(ep<0.7){
+            /* the flash — briefly brighter red transitioning to gold */
+            var trans=(ep-0.3)/0.4;
+            var r=Math.round(224*(1-trans)+200*trans);
+            var g=Math.round(112*(1-trans)+151*trans);
+            var b2=Math.round(112*(1-trans)+58*trans);
+            col='rgb('+r+','+g+','+b2+')';
+            /* size pulse on arrival */
+            if(ep>0.45&&ep<0.65) ds*=(1+Math.sin((ep-0.45)/0.2*Math.PI)*0.5);
+          } else {
+            col=GOLD2;
+          }
+          if(!p.arrived&&ep>0.55){
+            p.arrived=true;
+          }
+        } else {
+          col=ep>0.6?GOLD:GOLD;
+        }
+
+      } else {
+        /* hold — breathe as one unified field */
+        dx=p.tx+Math.sin(b5t*0.9+i*0.14)*0.7;
+        dy=p.ty+Math.cos(b5t*0.85+i*0.19)*0.45;
+        if(p.wasMissing){
+          /* missing dots pulse slightly brighter — newly arrived, full of energy */
+          da=0.78+Math.sin(b5t*1.4+i*0.35)*0.22;
+          ds=p.size*(1+Math.sin(b5t*1.2+i*0.3)*0.18);
+          col=GOLD2;
+        } else {
+          da=0.65+Math.sin(b5t*1.1+i*0.28)*0.2;
+          ds=p.size*(1+Math.sin(b5t*1.0+i*0.22)*0.12);
+          col=GOLD;
+        }
+      }
+
+      b5ctx.beginPath();
+      b5ctx.arc(dx,dy,Math.max(0.3,ds),0,Math.PI*2);
+      b5ctx.fillStyle=col;
+      b5ctx.globalAlpha=Math.max(0,Math.min(1,da));
+      b5ctx.fill();
+    }
+    b5ctx.globalAlpha=1;
+
+    /* hold: grid connection lines */
+    if(b5phase==='hold'){
+      var lineA=Math.min(0.09,b5phaseT*0.035+0.015);
+      b5ctx.strokeStyle='rgba(200,151,58,'+lineA+')';
+      b5ctx.lineWidth=0.5;
+      for(var r=0;r<GROWS;r++){
+        b5ctx.beginPath();
+        for(var c2=0;c2<GCOLS;c2++){
+          var idx=r*GCOLS+c2;
+          if(idx>=b5particles.length)break;
+          var pp=b5particles[idx];
+          var px=pp.tx+Math.sin(b5t*0.9+idx*0.14)*0.7;
+          var py=pp.ty+Math.cos(b5t*0.85+idx*0.19)*0.45;
+          if(c2===0)b5ctx.moveTo(px,py);else b5ctx.lineTo(px,py);
+        }
+        b5ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(beat5Loop);
+  }
+
+  function updateBeat5Text(s){
+    var lbl=document.getElementById('cv-label');
+    var numEl=document.getElementById('cv-num');
+    var cap=document.getElementById('cv-caption');
+    var rule=document.getElementById('cv-rule');
+    if(s==='scatter'){
+      lbl.textContent='Scattered. Disconnected.';
+      numEl.style.color=WHITE;
+      numEl.innerHTML='89<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+      cap.innerHTML='Waiting to be asked.';
+      cap.style.color='rgba(200,151,58,0.7)';
+      rule.style.background='rgba(200,151,58,0.4)';
+    } else if(s==='flicker'){
+      lbl.textContent='Finding the signal.';
+      numEl.style.color=GOLD;
+    } else if(s==='align'){
+      lbl.textContent='Organizing.';
+      numEl.style.color=GOLD2;
+      numEl.innerHTML='245<span style="font-size:0.38em;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;color:'+GOLD+'">M</span>';
+      cap.innerHTML='<strong style="color:'+WHITE+'">Together.</strong>';
+      cap.style.color=GOLD;
+      rule.style.background=GOLD;
+    } else if(s==='hold'){
+      lbl.textContent='Organized — there is power.';
+      numEl.style.color=GOLD;
+      cap.innerHTML='<strong style="color:'+WHITE+'">Every voice has a seat at the table.</strong>';
+      cap.style.color=GOLD;
+    }
+  }
+
+  function startBeat5(){
+    /* hide CSS dot grid, take over with canvas */
+    document.getElementById('cv-dots').style.opacity='0';
+    if(beat5Canvas)return;
+    beat5Canvas=document.createElement('canvas');
+    beat5Canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.8s';
+    document.getElementById('cover').appendChild(beat5Canvas);
+    b5ctx=beat5Canvas.getContext('2d');
+    beat5Canvas.width=beat5Canvas.parentElement.offsetWidth||700;
+    beat5Canvas.height=beat5Canvas.parentElement.offsetHeight||window.innerHeight;
+    var W=beat5Canvas.width,H=beat5Canvas.height,CX=W/2,CY=H*0.46;
+    buildBeat5Particles(W,H,CX,CY);
+    b5running=true;
+    b5t=0;b5phaseT=0;b5phase='scatter';b5last=null;
+    updateBeat5Text('scatter');
+    setTimeout(function(){beat5Canvas.style.opacity='1';},100);
+    requestAnimationFrame(beat5Loop);
+  }
+
+  function stopBeat5(){
+    b5running=false;
+    if(beat5Canvas){
+      beat5Canvas.style.opacity='0';
+      setTimeout(function(){
+        if(beat5Canvas&&beat5Canvas.parentElement)beat5Canvas.parentElement.removeChild(beat5Canvas);
+        beat5Canvas=null;b5ctx=null;
+      },800);
+    }
+    document.getElementById('cv-dots').style.opacity='1';
+  }
+
+  /* ── SEQUENCER ── */
+  var autoTimings=[0,2800,5800,9200,13000];
+  autoTimings.forEach(function(t,i){
+    setTimeout(function(){
+      if(i<4){
+        stopBeat5();
+        setPhase(i);
+      } else {
+        startBeat5();
+      }
+    },t);
+  });
+
+  setTimeout(function(){document.getElementById('cv-eyebrow').style.color='var(--gold)';},400);
+  buildDots();
+
+  /* ── BG CANVAS ── */
+  var bg=document.getElementById('cover-bg');
+  var bgCtx=bg.getContext('2d');
+  function resizeBg(){bg.width=bg.parentElement.offsetWidth||window.innerWidth;bg.height=bg.parentElement.offsetHeight||window.innerHeight;}
+  resizeBg();
+  window.addEventListener('resize',resizeBg);
+  var bgPts=[];
+  for(var i=0;i<50;i++){bgPts.push({x:Math.random()*bg.width,y:Math.random()*bg.height,r:Math.random()*1.2+0.3,a:Math.random()*0.055+0.018,vx:(Math.random()-0.5)*0.11,vy:(Math.random()-0.5)*0.07});}
+  function drawBg(){
+    bgCtx.clearRect(0,0,bg.width,bg.height);
+    for(var i=0;i<bgPts.length;i++){
+      var p=bgPts[i];p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=bg.width;if(p.x>bg.width)p.x=0;
+      if(p.y<0)p.y=bg.height;if(p.y>bg.height)p.y=0;
+      bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      bgCtx.fillStyle='#C8973A';bgCtx.globalAlpha=p.a;bgCtx.fill();
+    }
+    bgCtx.globalAlpha=1;
+    requestAnimationFrame(drawBg);
+  }
+  drawBg();
+})();
+</script>
 <!-- PROBLEM -->
 <section id="problem" class="page-section" style="border-top:1px solid rgba(255,255,255,0.05)">
   <div class="sec-num">01 — The Betrayal</div>
