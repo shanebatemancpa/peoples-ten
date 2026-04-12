@@ -420,9 +420,9 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
             else{d.style.background='rgba(200,151,58,0.5)';d.style.opacity='0.7';}
 
           } else if(mode==='voted'){
-            /* voted=gold, missing=RED, ineligible=barely there */
+            /* voted=gold, missing=dim gold (not revealed yet), ineligible=barely there */
             if(voted){d.style.background=GOLD2;d.style.opacity='0.95';}
-            else if(missing){d.style.background=RED;d.style.opacity='0.9';}
+            else if(missing){d.style.background='rgba(200,151,58,0.2)';d.style.opacity='0.3';}
             else{d.style.background='rgba(255,255,255,0.05)';d.style.opacity='0.12';}
 
           } else if(mode==='missing'){
@@ -501,8 +501,8 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         flickPhase:Math.random()*Math.PI*2,
         delay:isMissing?(0.6+Math.random()*1.2):(Math.random()*1.0),
         wasMissing:isMissing,
-        scatterColor:isMissing?'rgba(224,112,112,0.65)':GOLD,
-        holdColor:isMissing?'rgba(224,112,112,0.85)':GOLD
+        scatterColor:GOLD,
+        holdColor:GOLD
       });
     }
   }
