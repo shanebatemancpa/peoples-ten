@@ -854,17 +854,14 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
       var d=document.getElementById('cv-dots'); if(d){d.style.opacity='1';}
     }},
     {name:'5 · Final',            fn:function(){
-      /* hide canvas — use CSS dot grid for the pulsing box */
-      if(beat5Canvas) beat5Canvas.style.opacity='0';
-      b5running=false;
+      /* kill canvas */
+      stopBeat5();
+      if(beat5Canvas){beat5Canvas.style.opacity='0';}
 
-      var d=document.getElementById('cv-dots');
       var coverEl=document.getElementById('cover');
       if(coverEl){coverEl.style.justifyContent='center';coverEl.style.paddingTop='0';}
 
-      var lbl=document.getElementById('cv-label'); if(lbl) lbl.textContent='';
-      var rule=document.getElementById('cv-rule'); if(rule) rule.style.background='transparent';
-
+      /* headline */
       var numEl3=document.getElementById('cv-num');
       if(numEl3){
         numEl3.style.color=GOLD2;
@@ -875,19 +872,18 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         numEl3.style.fontFamily="'Bebas Neue',sans-serif";
         numEl3.style.minHeight='0';
         numEl3.style.height='auto';
-        numEl3.style.margin='0 auto';
-        numEl3.style.marginBottom='2rem';
+        numEl3.style.margin='0 auto 2rem';
+        numEl3.style.opacity='1';
+        numEl3.style.transition='none';
         numEl3.innerHTML='Demand Accountability<br>for Your <span style="color:'+GOLD+'">Vote.</span>';
       }
+      document.getElementById('cv-label').textContent='';
+      document.getElementById('cv-rule').style.background='transparent';
+      document.getElementById('cv-caption').innerHTML='';
 
-      /* show CSS dots with gold pulse */
-      if(d){
-        d.style.opacity='1';
-        d.style.minHeight='auto';
-        d.style.height='auto';
-        d.style.margin='0 auto 2rem';
-      }
-      /* animate each dot gold pulse with staggered delay */
+      /* pulsing CSS dot grid */
+      var d=document.getElementById('cv-dots');
+      if(d){d.style.opacity='1';d.style.minHeight='auto';d.style.height='auto';d.style.margin='0 auto 2rem';d.style.transition='none';}
       for(var di=0;di<TOTAL;di++){
         var dot=document.getElementById('cvd-'+di);
         if(!dot) continue;
@@ -898,15 +894,10 @@ footer{text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:
         dot.style.animation='pulse-gold '+(1.8+di*0.04%0.9)+'s '+(di*0.03%1.2)+'s infinite';
       }
 
-      var cap=document.getElementById('cv-caption');
-      if(cap){cap.innerHTML='';cap.style.color='transparent';}
-
-      /* countdowns fade in after 0.8s */
-      setTimeout(function(){
-        var cta=document.getElementById('cv-cta');
-        if(cta){cta.style.opacity='1';cta.style.pointerEvents='auto';}
-        setTimeout(function(){document.getElementById('cv-scroll').style.opacity='1';},700);
-      },800);
+      /* countdowns */
+      var cta=document.getElementById('cv-cta');
+      if(cta){cta.style.opacity='1';cta.style.pointerEvents='auto';}
+      setTimeout(function(){document.getElementById('cv-scroll').style.opacity='1';},500);
     }}
   ];;
 
