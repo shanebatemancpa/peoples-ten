@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The People's Ten — Theory of Change</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#04080F;--dark:#0A0E14;--navy:#08122B;--grey:#141820;--grey-mid:#1E2330;
+  --muted:#6B7280;--white:#F5F4F0;--gold:#C8973A;--gold-light:#E8B95A;
+  --green:#5FA577;--blue:#5B7FB0;--red:#B85555;
+}
+body{background:var(--navy);color:var(--white);font-family:'Lato',sans-serif;font-size:14px;line-height:1.75}
+
+.header{padding:4rem 2rem 2.5rem;text-align:center;border-bottom:1px solid rgba(200,151,58,0.15)}
+.header-eyebrow{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.header-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,6vw,4rem);letter-spacing:0.1em;line-height:1}
+.header-rule{width:60px;height:1px;background:var(--gold);margin:1.25rem auto}
+.header-sub{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;color:rgba(200,151,58,0.6);text-transform:uppercase}
+
+.doc{max-width:920px;margin:0 auto;padding:3.5rem 2rem 6rem}
+
+.section{margin-bottom:4.5rem}
+.section-num{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.24em;color:var(--gold);margin-bottom:0.5rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3.5vw,2.2rem);letter-spacing:0.06em;color:var(--white);margin-bottom:1.75rem;line-height:1.1}
+.section-rule{width:36px;height:1px;background:var(--gold);margin-bottom:2rem}
+
+.lead{font-size:1rem;color:var(--white);line-height:1.85;margin-bottom:1.25rem;max-width:740px}
+.body{font-size:0.92rem;color:rgba(245,244,240,0.82);line-height:1.85;margin-bottom:1.25rem;max-width:740px}
+.body strong{color:var(--gold-light);font-weight:400}
+
+.callout{background:linear-gradient(135deg,rgba(200,151,58,0.1),rgba(8,18,43,0.9));border-left:2px solid var(--gold);padding:1.5rem 1.75rem;margin:1.75rem 0;max-width:740px;border-radius:0 4px 4px 0}
+.callout-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.callout-text{font-size:1rem;color:var(--white);font-style:italic;line-height:1.75;font-weight:300}
+
+/* CHAIN DIAGRAM */
+.chain{margin:2.5rem 0;padding:2rem;background:var(--dark);border:1px solid rgba(200,151,58,0.15);border-radius:6px}
+.chain-row{display:flex;align-items:stretch;gap:0.5rem;flex-wrap:wrap}
+.chain-step{flex:1;min-width:180px;background:rgba(255,255,255,0.03);border-radius:4px;padding:1rem;border-top:2px solid var(--gold)}
+.chain-step-num{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.4rem}
+.chain-step-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.06em;color:var(--white);margin-bottom:0.5rem;line-height:1.15}
+.chain-step-text{font-size:0.7rem;color:rgba(245,244,240,0.6);line-height:1.6}
+.chain-arrow{display:flex;align-items:center;color:var(--gold);font-size:1.2rem;font-weight:300}
+@media(max-width:768px){.chain-row{flex-direction:column}.chain-arrow{transform:rotate(90deg);justify-content:center;padding:0.5rem 0}}
+
+/* IF-THEN-BECAUSE */
+.itb{margin:2rem 0;max-width:740px}
+.itb-row{display:grid;grid-template-columns:80px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(200,151,58,0.1)}
+.itb-row:last-child{border-bottom:none}
+.itb-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;padding-top:0.15rem}
+.itb-text{font-size:0.92rem;color:rgba(245,244,240,0.85);line-height:1.75}
+
+/* OUTCOMES TABLE */
+.outcomes{margin:2rem 0}
+.outcome-row{display:grid;grid-template-columns:1fr 2fr 1fr;gap:1rem;padding:1.25rem 0;border-bottom:1px solid rgba(200,151,58,0.1);align-items:start}
+.outcome-row:last-child{border-bottom:none}
+.outcome-row.head{padding:0.75rem 0;border-bottom:1px solid rgba(200,151,58,0.3)}
+.outcome-cell{font-size:0.85rem;color:rgba(245,244,240,0.8);line-height:1.7}
+.outcome-cell.label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase}
+.outcome-time{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold-light);letter-spacing:0.06em}
+.outcome-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--white);letter-spacing:0.04em;margin-bottom:0.3rem}
+.outcome-desc{font-size:0.78rem;color:rgba(245,244,240,0.6);line-height:1.65}
+.outcome-metric{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);letter-spacing:0.06em}
+
+/* ASSUMPTIONS */
+.assume-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+@media(max-width:640px){.assume-grid{grid-template-columns:1fr}}
+.assume-card{background:var(--dark);border:1px solid rgba(255,255,255,0.05);border-radius:4px;padding:1.25rem}
+.assume-num{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.5rem}
+.assume-text{font-size:0.85rem;color:rgba(245,244,240,0.85);line-height:1.7;margin-bottom:0.6rem;font-weight:400}
+.assume-evidence{font-size:0.7rem;color:rgba(245,244,240,0.45);line-height:1.6;font-style:italic}
+
+/* PROBLEM STATEMENT */
+.problem-stat{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:0.04em;line-height:1.35;color:var(--white);margin:1.5rem 0;max-width:740px}
+.problem-stat .gold{color:var(--gold-light)}
+.problem-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5rem);color:var(--gold);letter-spacing:0.04em;line-height:0.95;margin:1.5rem 0 0.5rem}
+.problem-num-label{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;color:rgba(200,151,58,0.6);text-transform:uppercase;margin-bottom:1.25rem}
+
+/* CLOSE */
+.close{margin-top:5rem;padding:3rem 2rem;background:var(--dark);border-radius:6px;text-align:center;border:1px solid rgba(200,151,58,0.2)}
+.close-eyebrow{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.close-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3.5vw,2.2rem);letter-spacing:0.06em;color:var(--white);margin-bottom:1rem}
+.close-body{font-size:0.92rem;color:rgba(245,244,240,0.7);line-height:1.85;max-width:600px;margin:0 auto}
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid rgba(200,151,58,0.12);font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase">
+<a href="why.html" style="color:rgba(245,244,240,0.55);text-decoration:none">← Why</a>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:0.14em;color:#C8973A">The People's Ten</div>
+<a href="index.html" style="color:rgba(245,244,240,0.55);text-decoration:none">Home →</a>
+</nav>
+
+
+<div class="header">
+  <div class="header-eyebrow">Theory of Change · Foundational Document</div>
+  <div class="header-title">The People's Ten</div>
+  <div class="header-rule"></div>
+  <div class="header-sub">How sustained civic accountability emerges from small groups</div>
+</div>
+
+<div class="doc">
+
+<!-- ─────── 01 PROBLEM ─────── -->
+<div class="section">
+  <div class="section-num">01 · The Problem</div>
+  <div class="section-title">American civic engagement is broken — and the technology that broke it has been treating the symptoms.</div>
+  <div class="section-rule"></div>
+
+  <div class="lead">
+    For two decades, every measurable indicator of civic health has fallen. Trust in government sits at 8%. Approval at 12%. Voter turnout has stagnated at one of the lowest rates in the developed world. Polarization has hardened into identity rather than ideology. Americans no longer disagree with one another — they no longer recognize one another.
+  </div>
+
+  <div class="body">
+    The platforms designed to keep us informed have learned that outrage drives engagement and engagement drives revenue. They have no economic incentive to fix what they have built. They optimize for time-on-platform, which means optimizing for fear and contempt. The country fragmenting into algorithmic tribes is not a side effect of social media. It is its central product.
+  </div>
+
+  <div class="problem-num">89,000,000</div>
+  <div class="problem-num-label">Eligible Americans who did not vote in 2024</div>
+
+  <div class="problem-stat">
+    They are not apathetic. They are not lost. They are <span class="gold">unconvinced their participation matters</span> — and twenty years of civic engagement technology has failed to change their minds.
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">The Core Problem</div>
+    <div class="callout-text">Existing civic engagement tools operate top-down — broadcasting messages to passive audiences. They lack the social architecture required to create durable behavior change at scale. People do not change their civic behavior because of a notification. They change it because the people sitting next to them do.</div>
+  </div>
+</div>
+
+<!-- ─────── 02 INSIGHT ─────── -->
+<div class="section">
+  <div class="section-num">02 · The Insight</div>
+  <div class="section-title">Behavior changes when neighbors change — not when platforms broadcast.</div>
+  <div class="section-rule"></div>
+
+  <div class="lead">
+    Network science has produced a clear answer to how durable behavior change spreads through human communities. It is called <strong>complex contagion</strong>: behaviors propagate through small groups when individuals receive multiple, reinforcing signals from people they trust. They do not spread virally from a single source. They spread laterally through tight clusters.
+  </div>
+
+  <div class="body">
+    Damon Centola's research at the University of Pennsylvania has demonstrated this experimentally. So has Marshall Ganz's organizing methodology at Harvard. So has every successful social movement in American history. The civil rights movement was not won by mass media. It was won by congregations, classrooms, dinner tables, barber shops, and bus drivers who knew each other.
+  </div>
+
+  <div class="body">
+    Starlings provide the most elegant model in nature. A flock of ten thousand birds executes coordinated turns at the speed of thought. There is no leader. There is no central command. Each bird watches only its six or seven nearest neighbors, applies three local rules, and the flock as a whole becomes a single intelligent organism. This is <strong>murmuration</strong>.
+  </div>
+
+  <div class="body">
+    Human civic behavior can be engineered to follow the same pattern. Not commanded — engineered. The conditions can be designed. The architecture can be built. The technology now exists to do this at scale, and for the first time in modern history, the cost is low enough that it can be done outside of corporate or partisan control.
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">The Insight</div>
+    <div class="callout-text">If we engineer the right conditions in groups of six to eight existing relationships — book clubs, parent groups, church small groups, neighbors, hunting buddies, running clubs — we can create civic murmuration. The technology that broke us apart can put us back together, six neighbors at a time.</div>
+  </div>
+</div>
+
+<!-- ─────── 03 THE CHAIN ─────── -->
+<div class="section">
+  <div class="section-num">03 · The Chain of Change</div>
+  <div class="section-title">From ten simple rules to a country that holds itself accountable.</div>
+  <div class="section-rule"></div>
+
+  <div class="lead">
+    The theory of change rests on a clear chain. Each link is necessary. None is sufficient alone.
+  </div>
+
+  <div class="chain">
+    <div class="chain-row">
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 01</div>
+        <div class="chain-step-title">Ten Simple Rules</div>
+        <div class="chain-step-text">A non-partisan, fixed set of standards every public officeholder should commit to in word and deed.</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 02</div>
+        <div class="chain-step-title">Small Group Architecture</div>
+        <div class="chain-step-text">Existing groups of 6-8 adopt the Ten as a shared reference point. Trust already exists. We add purpose.</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 03</div>
+        <div class="chain-step-title">Local Visibility</div>
+        <div class="chain-step-text">AI surfaces real-time accountability data — votes, statements, actions — at the neighborhood scale.</div>
+      </div>
+
+    </div>
+
+    <div class="chain-row" style="margin-top:0.5rem">
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 04</div>
+        <div class="chain-step-title">Conditional Voting</div>
+        <div class="chain-step-text">Members make their vote conditional on candidate adherence to the Ten. Across all parties. No exceptions.</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 05</div>
+        <div class="chain-step-title">Murmuration</div>
+        <div class="chain-step-text">The flock effect emerges. Groups feel connected to a national movement without losing local trust.</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-step">
+        <div class="chain-step-num">Step 06</div>
+        <div class="chain-step-title">Accountability Becomes Norm</div>
+        <div class="chain-step-text">Officeholders know they will be measured. Behavior changes upstream. The 89 million become decisive.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="body">
+    Each step in the chain is grounded in established research. The novelty is the combination — and the application of modern AI infrastructure to make the local visibility step feasible for the first time.
+  </div>
+</div>
+
+<!-- ─────── 04 IF/THEN/BECAUSE ─────── -->
+<div class="section">
+  <div class="section-num">04 · The If-Then-Because</div>
+  <div class="section-title">The logic stated plainly.</div>
+  <div class="section-rule"></div>
+
+  <div class="itb">
+    <div class="itb-row">
+      <div class="itb-label">If</div>
+      <div class="itb-text">we provide existing groups of 6-8 trusted neighbors with shared accountability principles, low-friction tools to apply them, and real-time local visibility into how their elected officials measure up,</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Then</div>
+      <div class="itb-text">civic accountability behavior will propagate through these groups via complex contagion, sustained by mutual reinforcement and local social proof,</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Because</div>
+      <div class="itb-text">behavior change at scale has been demonstrated empirically to require trusted small-group networks, shared identity signals, and tangible action — and modern AI makes the third element feasible for the first time at the neighborhood scale.</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Result</div>
+      <div class="itb-text">Officeholders behave knowing they are watched. Voters who had checked out re-engage because their participation now visibly matters. Civic engagement compounds across election cycles rather than collapsing after each one.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────── 05 OUTCOMES ─────── -->
+<div class="section">
+  <div class="section-num">05 · Outcomes & Time Horizons</div>
+  <div class="section-title">What success looks like — and when.</div>
+  <div class="section-rule"></div>
+
+  <div class="lead">
+    This is a long play. Civic institutions that durably change behavior take 10-20 years to mature. The People's Ten is built on that timeline.
+  </div>
+
+  <div class="outcomes">
+
+    <div class="outcome-row head">
+      <div class="outcome-cell label">Time Horizon</div>
+      <div class="outcome-cell label">Outcome</div>
+      <div class="outcome-cell label">Measurable</div>
+    </div>
+
+    <div class="outcome-row">
+      <div class="outcome-cell"><div class="outcome-time">Year 1</div></div>
+      <div class="outcome-cell">
+        <div class="outcome-name">Validation & Pilot</div>
+        <div class="outcome-desc">Theory of change validated by foundational advisory circle. Pilot launched in single high-trust community. First 100 groups of 6-8 form organically.</div>
+      </div>
+      <div class="outcome-cell"><div class="outcome-metric">100 groups<br>1 zip code<br>Validation memo</div></div>
+    </div>
+
+    <div class="outcome-row">
+      <div class="outcome-cell"><div class="outcome-time">Year 2-3</div></div>
+      <div class="outcome-cell">
+        <div class="outcome-name">Local Proof Point</div>
+        <div class="outcome-desc">Pilot community demonstrates measurable lift in turnout, candidate accountability, and civic participation. Second and third cities adopt model.</div>
+      </div>
+      <div class="outcome-cell"><div class="outcome-metric">10,000 groups<br>3 markets<br>Turnout +15% local</div></div>
+    </div>
+
+    <div class="outcome-row">
+      <div class="outcome-cell"><div class="outcome-time">Year 4-6</div></div>
+      <div class="outcome-cell">
+        <div class="outcome-name">Regional Movement</div>
+        <div class="outcome-desc">Model replicated across 50+ markets. Officeholders begin proactively committing to the Ten. Independent research validates behavior change.</div>
+      </div>
+      <div class="outcome-cell"><div class="outcome-metric">500,000 groups<br>50 markets<br>Peer-reviewed study</div></div>
+    </div>
+
+    <div class="outcome-row">
+      <div class="outcome-cell"><div class="outcome-time">Year 7-10</div></div>
+      <div class="outcome-cell">
+        <div class="outcome-name">National Infrastructure</div>
+        <div class="outcome-desc">The People's Ten is recognized civic infrastructure. Multi-cycle accountability data accumulates. Murmuration is observed at national scale.</div>
+      </div>
+      <div class="outcome-cell"><div class="outcome-metric">5M+ groups<br>National coverage<br>Multi-cycle data</div></div>
+    </div>
+
+    <div class="outcome-row">
+      <div class="outcome-cell"><div class="outcome-time">Year 10+</div></div>
+      <div class="outcome-cell">
+        <div class="outcome-name">Institutional Permanence</div>
+        <div class="outcome-desc">The People's Ten outlives its founders, survives partisan attack, and becomes part of the civic fabric. Accountability is the norm, not the exception.</div>
+      </div>
+      <div class="outcome-cell"><div class="outcome-metric">Self-sustaining<br>Cross-generational<br>Cultural baseline</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─────── 06 ASSUMPTIONS ─────── -->
+<div class="section">
+  <div class="section-num">06 · Underlying Assumptions</div>
+  <div class="section-title">What must be true for this to work.</div>
+  <div class="section-rule"></div>
+
+  <div class="lead">
+    Honesty about assumptions is what separates a theory of change from a marketing plan. Every assumption below must be tested before scale. If any of them fails, the model fails.
+  </div>
+
+  <div class="assume-grid">
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 01</div>
+      <div class="assume-text">Complex contagion works for civic behavior, not just consumer behavior or health behavior.</div>
+      <div class="assume-evidence">Tested by: Centola conversation. Pilot data. Existing research on civic activist development (Han).</div>
+    </div>
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 02</div>
+      <div class="assume-text">Existing small groups will adopt civic action without it disrupting their primary purpose.</div>
+      <div class="assume-evidence">Tested by: Pilot in book clubs, church small groups, parent networks. Friction measurement.</div>
+    </div>
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 03</div>
+      <div class="assume-text">A non-partisan framework can survive contact with a hyper-partisan environment without being captured.</div>
+      <div class="assume-evidence">Tested by: Mason conversation. Structural governance design. Bipartisan board from day one.</div>
+    </div>
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 04</div>
+      <div class="assume-text">AI-driven local accountability data can be produced reliably and inexpensively at neighborhood scale.</div>
+      <div class="assume-evidence">Tested by: Conor / data architecture review. Cost modeling. Accuracy benchmarking.</div>
+    </div>
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 05</div>
+      <div class="assume-text">The 89 million who didn't vote will respond to a frame other than partisan persuasion.</div>
+      <div class="assume-evidence">Tested by: Pilot turnout data. Pre/post engagement surveys. Comparison to control communities.</div>
+    </div>
+
+    <div class="assume-card">
+      <div class="assume-num">Assumption 06</div>
+      <div class="assume-text">Patient capital and governance can be assembled to sustain a 10-20 year build.</div>
+      <div class="assume-evidence">Tested by: Foundation conversations. 501(c)(3) / (c)(4) structure design. Founder succession plan.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─────── 07 RISKS ─────── -->
+<div class="section">
+  <div class="section-num">07 · Risks & Mitigations</div>
+  <div class="section-title">What could kill this — and how we respond.</div>
+  <div class="section-rule"></div>
+
+  <div class="itb">
+    <div class="itb-row">
+      <div class="itb-label">Risk 01</div>
+      <div class="itb-text"><strong style="color:var(--gold-light)">Partisan capture.</strong> One side claims the Ten as a mascot, the other rejects it. Mitigated by structural bipartisan governance and a board veto on any politicized communication.</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Risk 02</div>
+      <div class="itb-text"><strong style="color:var(--gold-light)">Platform decay.</strong> Initial enthusiasm wanes after first election cycle. Mitigated by predictable annual rhythm, off-year accountability programming, and leadership development from day one.</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Risk 03</div>
+      <div class="itb-text"><strong style="color:var(--gold-light)">Information weaponization.</strong> Bad actors flood the platform with manufactured accountability data. Mitigated by source verification standards, citation requirements, and peer-review of the Ten's measurement criteria.</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Risk 04</div>
+      <div class="itb-text"><strong style="color:var(--gold-light)">Scale collapse.</strong> Local trust dissolves as the platform grows national. Mitigated by architectural commitment to small-group primacy — the local layer is never compromised for national reach.</div>
+    </div>
+    <div class="itb-row">
+      <div class="itb-label">Risk 05</div>
+      <div class="itb-text"><strong style="color:var(--gold-light)">Founder dependence.</strong> Project dies if founder leaves. Mitigated by institutional governance, distributed leadership, and a documented handoff process from year one.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────── 08 WHY NOW ─────── -->
+<div class="section">
+  <div class="section-num">08 · Why Now</div>
+  <div class="section-title">Three forces converge for the first time in modern civic history.</div>
+  <div class="section-rule"></div>
+
+  <div class="body">
+    <strong>The crisis is acute.</strong> Trust in institutions is at historic lows. The 2024 election demonstrated that 89 million eligible Americans see no reason to participate. Continuing the current civic engagement playbook is choosing to fail in slow motion.
+  </div>
+
+  <div class="body">
+    <strong>The technology is ready.</strong> AI infrastructure that can read every public statement, track every vote, and surface that information at the neighborhood scale was prohibitively expensive eighteen months ago. It is now feasible. This is the first generation of civic engagement tools that can actually deliver on hyper-local accountability at scale.
+  </div>
+
+  <div class="body">
+    <strong>The research is mature.</strong> Centola's complex contagion. Ganz's snowflake organizing. Han's activist development. Mason's identity work. The behavioral science needed to design this correctly has been developed over the last twenty years. It has never been integrated into a single applied platform.
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Why Now</div>
+    <div class="callout-text">The same twenty years that produced the polarization crisis also produced the research and the technology required to engineer our way out. We do not have to invent any of the underlying science. We have to assemble it correctly, fund it patiently, and trust the small groups to do what they have always done: take care of each other.</div>
+  </div>
+</div>
+
+<!-- CLOSE -->
+<div class="close">
+  <div class="close-eyebrow">The Ask</div>
+  <div class="close-title">Help Us Validate, Then Help Us Build.</div>
+  <div class="close-body">
+    Before another line of code or another scene of video gets made, this theory of change needs to be tested by the people who have spent careers studying these dynamics. If they tell us it will not work, we listen. If they tell us it will, we build the institution that holds American civic life accountable for the next generation.
+    <br><br>
+    Either way, we owe the 89 million an honest answer.
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
